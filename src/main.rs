@@ -22,24 +22,25 @@ use amethyst::{
     },
     Error,
 };
+use amethyst_gltf::{GltfSceneAsset, GltfSceneFormat, GltfSceneLoaderSystem};
 
-type MyPrefabData = BasicScenePrefab<Vec<PosNormTex>>;
+// type MyPrefabData = BasicScenePrefab<Vec<PosNormTex>>;
 
 #[derive(Default)]
 struct Loading {
     progress: ProgressCounter,
-    prefab: Option<Handle<Prefab<MyPrefabData>>>,
+    // prefab: Option<Handle<Prefab<MyPrefabData>>>,
 }
 
 struct Example {
-    scene: Handle<Prefab<MyPrefabData>>,
+    // scene: Handle<Prefab<MyPrefabData>>,
 }
 
 impl SimpleState for Loading {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
-        self.prefab = Some(data.world.exec(|loader: PrefabLoader<'_, MyPrefabData>| {
-            loader.load("prefab/renderable.ron", RonFormat, (), &mut self.progress)
-        }));
+        // self.prefab = Some(data.world.exec(|loader: PrefabLoader<'_, MyPrefabData>| {
+        //     loader.load("prefab/renderable.ron", RonFormat, (), &mut self.progress)
+        // }));
 
         data.world.exec(|mut creator: UiCreator<'_>| {
             creator.create("ui/fps.ron", &mut self.progress);
@@ -62,7 +63,7 @@ impl SimpleState for Loading {
                     let _ = data.world.delete_entity(entity);
                 }
                 Trans::Switch(Box::new(Example {
-                    scene: self.prefab.as_ref().unwrap().clone(),
+                    // scene: self.prefab.as_ref().unwrap().clone(),
                 }))
             }
             Completion::Loading => Trans::None,
@@ -74,7 +75,7 @@ impl SimpleState for Example {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         let StateData { world, .. } = data;
 
-        world.create_entity().with(self.scene.clone()).build();
+        // world.create_entity().with(self.scene.clone()).build();
     }
 
     fn handle_event(
@@ -181,9 +182,14 @@ fn main() -> Result<(), Error> {
      );
 
     let game_data = GameDataBuilder::default()
-        .with(PrefabLoaderSystem::<MyPrefabData>::default(), "", &[])
+        // .with(PrefabLoaderSystem::<MyPrefabData>::default(), "", &[])
         .with::<ExampleSystem>(ExampleSystem::default(), "example_system", &[])
         .with_bundle(TransformBundle::new().with_dep(&["example_system"]))?
+        // .with(
+        //     GltfSceneLoaderSystem::default(),
+        //     "gltf_loader",
+        //     &["scene_loader"], // This is important so that entity instantiation is performed in a single frame.
+        //     )
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(HotReloadBundle::default())?
         .with_bundle(FPSCounterBundle::default())?
