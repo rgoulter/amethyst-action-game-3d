@@ -3,7 +3,7 @@ use amethyst;
 use amethyst::{
     assets::{
         Completion, Handle, HotReloadBundle, Prefab, PrefabLoader, PrefabLoaderSystem,
-        ProgressCounter, RonFormat,
+        ProgressCounter, RonFormat, Loader,
     },
     core::{
         nalgebra::{UnitQuaternion, Vector3},
@@ -14,7 +14,7 @@ use amethyst::{
     ecs::prelude::{Component, Entity, Join, Read, ReadStorage, System, Write, WriteStorage},
     input::{get_key, is_close_requested, is_key_down, InputBundle, InputHandler},
     prelude::*,
-    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection},
+    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection, MeshHandle, ObjFormat},
     ui::{UiBundle, UiCreator, UiFinder, UiText},
     utils::{
         application_root_dir,
@@ -52,6 +52,32 @@ impl<'s> System<'s> for MovementSystem {
             transform.translate_y(y_move as f32 * 5.0);
         }
     }
+}
+
+#[derive(Clone)]
+pub struct Assets {
+    tank: MeshHandle,
+}
+
+pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
+    let assets = {
+        let mesh_storage = world.read_resource();
+        let loader = world.read_resource::<Loader>();
+
+        let tank = loader.load(
+            "mesh/tank.obj",
+            ObjFormat,
+            (),
+            progress,
+            &mesh_storage,
+        );
+
+        Assets {
+            tank,
+        }
+    };
+
+    world.add_resource(assets);
 }
 
 // XXX: needs to have the Gltf scene/prefab?
@@ -99,7 +125,7 @@ struct Loading {
     // prefab: Option<Handle<Prefab<MyPrefabData>>>,
 }
 
-struct Example {
+struct Main {
     // scene: Handle<Prefab<MyPrefabData>>,
 }
 
@@ -113,6 +139,10 @@ impl SimpleState for Loading {
             creator.create("ui/fps.ron", &mut self.progress);
             creator.create("ui/loading.ron", &mut self.progress);
         });
+
+        println!("Before load_assets");
+        load_assets(data.world, &mut self.progress);
+        println!("after load_assets");
     }
 
     fn update(&mut self, data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
@@ -129,22 +159,31 @@ impl SimpleState for Loading {
                 {
                     let _ = data.world.delete_entity(entity);
                 }
-                Trans::Switch(Box::new(Example {
+                Trans::Switch(Box::new(Main {
+                    // XXX no need to do anything here;
+                    // we write assets as resource
                     // scene: self.prefab.as_ref().unwrap().clone(),
                 }))
             }
-            Completion::Loading => Trans::None,
+            Completion::Loading => {
+                println!("still loading assets...");
+                Trans::None
+            }
         }
     }
 }
 
-impl SimpleState for Example {
+impl SimpleState for Main {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         let StateData { world, .. } = data;
+
+        let assets = world.read_resource::<Assets>().clone();
 
         init_camera(world);
         // init_lighting(data.world);
         // world.create_entity().with(self.scene.clone()).build();
+
+        // XXX init player
     }
 
     fn handle_event(
