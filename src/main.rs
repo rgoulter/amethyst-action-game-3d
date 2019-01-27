@@ -10,10 +10,11 @@ use amethyst::{
         timing::Time,
         transform::{Transform, TransformBundle},
     },
-    ecs::prelude::{Entity, Join, Read, ReadStorage, System, Write, WriteStorage},
-    input::{get_key, is_close_requested, is_key_down, InputBundle},
+    ecs::{NullStorage},
+    ecs::prelude::{Component, Entity, Join, Read, ReadStorage, System, Write, WriteStorage},
+    input::{get_key, is_close_requested, is_key_down, InputBundle, InputHandler},
     prelude::*,
-    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode},
+    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection},
     ui::{UiBundle, UiCreator, UiFinder, UiText},
     utils::{
         application_root_dir,
@@ -25,6 +26,72 @@ use amethyst::{
 use amethyst_gltf::{GltfSceneAsset, GltfSceneFormat, GltfSceneLoaderSystem};
 
 // type MyPrefabData = BasicScenePrefab<Vec<PosNormTex>>;
+
+#[derive(Default)]
+struct Player;
+
+impl Component for Player {
+    type Storage = NullStorage<Self>;
+}
+
+struct MovementSystem;
+
+impl<'s> System<'s> for MovementSystem {
+    type SystemData = (
+        ReadStorage<'s, Player>,
+        WriteStorage<'s, Transform>,
+        Read<'s, InputHandler<String, String>>,
+    );
+
+    fn run(&mut self, (players, mut transforms, input): Self::SystemData) {
+        let x_move = input.axis_value("entity_x").unwrap();
+        let y_move = input.axis_value("entity_y").unwrap();
+
+        for (_, transform) in (&players, &mut transforms).join() {
+            transform.translate_x(x_move as f32 * 5.0);
+            transform.translate_y(y_move as f32 * 5.0);
+        }
+    }
+}
+
+// XXX: needs to have the Gltf scene/prefab?
+fn init_player(world: &mut World) -> Entity {
+    let mut transform = Transform::default();
+    transform.set_x(0.0);
+    transform.set_y(0.0);
+    // let sprite = SpriteRender {
+    //     sprite_sheet: sprite_sheet.clone(),
+    //     sprite_number: 1,
+    // };
+    world
+        .create_entity()
+        .with(transform)
+        .with(Player)
+        // .with(sprite)
+        .build()
+}
+
+// fn init_camera(world: &mut World, parent: Entity) {
+fn init_camera(world: &mut World) {
+    let mut transform = Transform::default();
+    transform.set_z(1.0);
+    world
+        .create_entity()
+        .with(Camera::from(Projection::perspective(
+          1.3,
+          1.0471975512,
+        )))
+        // .with(Parent { entity: parent })
+        .with(transform)
+        .build();
+}
+
+// fn init_lighting(world: &mut World) {
+//     // Ambient color
+//     world
+//         .create_entity(AmbientColor((1.0, 1.0, 1.0, 1.0)))
+//         .build();
+// }
 
 #[derive(Default)]
 struct Loading {
@@ -75,6 +142,8 @@ impl SimpleState for Example {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         let StateData { world, .. } = data;
 
+        init_camera(world);
+        // init_lighting(data.world);
         // world.create_entity().with(self.scene.clone()).build();
     }
 
