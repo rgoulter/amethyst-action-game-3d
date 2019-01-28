@@ -6,7 +6,7 @@ use amethyst::{
         ProgressCounter, RonFormat, Loader,
     },
     core::{
-        nalgebra::{UnitQuaternion, Vector3},
+        nalgebra::{UnitQuaternion, Vector3, Translation3, Quaternion},
         timing::Time,
         transform::{Transform, TransformBundle},
     },
@@ -14,7 +14,7 @@ use amethyst::{
     ecs::prelude::{Component, Entity, Join, Read, ReadStorage, System, Write, WriteStorage},
     input::{get_key, is_close_requested, is_key_down, InputBundle, InputHandler},
     prelude::*,
-    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection, MeshHandle, ObjFormat},
+    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection, MeshHandle, ObjFormat, Material, MaterialDefaults, PointLight, Rgba,},
     ui::{UiBundle, UiCreator, UiFinder, UiText},
     utils::{
         application_root_dir,
@@ -57,50 +57,70 @@ impl<'s> System<'s> for MovementSystem {
 #[derive(Clone)]
 pub struct Assets {
     tank: MeshHandle,
+    green_material: Material,
 }
 
 pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
     let assets = {
         let mesh_storage = world.read_resource();
+        let tex_storage = world.read_resource();
+        let mat_defaults = world.read_resource::<MaterialDefaults>();
         let loader = world.read_resource::<Loader>();
 
-        let tank = loader.load(
+
+        let tank = {
+            let p1: &mut ProgressCounter = progress;
+            loader.load(
             "mesh/tank.obj",
             ObjFormat,
             (),
-            progress,
+            p1,
             &mesh_storage,
-        );
+        ) };
+
+        let green_texture = {
+            let p2: &mut ProgressCounter = progress;
+            loader.load_from_data(
+            [0.3, 1.0, 0.3, 1.0].into(),
+            progress,
+            &tex_storage
+        ) };
+        let green_material = Material {
+            albedo: green_texture,
+            ..mat_defaults.0.clone()
+        };
 
         Assets {
             tank,
+            green_material,
         }
     };
 
     world.add_resource(assets);
 }
 
-// XXX: needs to have the Gltf scene/prefab?
-fn init_player(world: &mut World) -> Entity {
+fn init_player(world: &mut World, assets: Assets) -> Entity {
+// fn init_player(world: &mut World) -> Entity {
     let mut transform = Transform::default();
-    transform.set_x(0.0);
-    transform.set_y(0.0);
-    // let sprite = SpriteRender {
-    //     sprite_sheet: sprite_sheet.clone(),
-    //     sprite_number: 1,
-    // };
+    let tank_mesh = assets.tank.clone();
     world
         .create_entity()
         .with(transform)
-        .with(Player)
-        // .with(sprite)
+        // .with(Player)
+        .with(tank_mesh)
+        .with(assets.green_material.clone())
         .build()
 }
 
 // fn init_camera(world: &mut World, parent: Entity) {
 fn init_camera(world: &mut World) {
-    let mut transform = Transform::default();
-    transform.set_z(1.0);
+    // let position = Translation3::new(0.0, -20.0, 10.0);
+    let position = Translation3::new(0.0, -20.0, 10.0);
+    // let rotation = UnitQuaternion::from_euler_angles(0.7933533, 0.6087614, 0.0);
+    let rotation = Quaternion::new(0.7933533, 0.6087614, 0.0, 0.0);
+    let rotation = UnitQuaternion::new_normalize(rotation);
+    let scale = Vector3::new(1.0, 1.0, 1.0);
+    let transform = Transform::new(position, rotation, scale);
     world
         .create_entity()
         .with(Camera::from(Projection::perspective(
@@ -112,12 +132,24 @@ fn init_camera(world: &mut World) {
         .build();
 }
 
-// fn init_lighting(world: &mut World) {
-//     // Ambient color
-//     world
-//         .create_entity(AmbientColor((1.0, 1.0, 1.0, 1.0)))
-//         .build();
-// }
+fn init_lighting(world: &mut World) {
+    let position = Translation3::new(15.0, 0.0, 6.0);
+    let rotation = Quaternion::new(0.7933533, 0.6087614, 0.0, 0.0);
+    let rotation = UnitQuaternion::new_normalize(rotation);
+    let scale = Vector3::new(1.0, 1.0, 1.0);
+    let transform = Transform::new(position, rotation, scale);
+    let point_light = PointLight {
+        color: Rgba(1.0, 1.0, 1.0, 1.0),
+        intensity: 50.0,
+        radius: 100.0,
+        smoothness: 1.0,
+    };
+    world
+        .create_entity()
+        .with(Light::Point(point_light))
+        .with(transform)
+        .build();
+}
 
 #[derive(Default)]
 struct Loading {
@@ -140,9 +172,7 @@ impl SimpleState for Loading {
             creator.create("ui/loading.ron", &mut self.progress);
         });
 
-        println!("Before load_assets");
         load_assets(data.world, &mut self.progress);
-        println!("after load_assets");
     }
 
     fn update(&mut self, data: &mut StateData<'_, GameData<'_, '_>>) -> SimpleTrans {
@@ -152,7 +182,9 @@ impl SimpleState for Loading {
                 Trans::Quit
             }
             Completion::Complete => {
-                println!("Assets loaded, swapping state");
+                println!("Assets loaded ({}/{}), swapping state",
+                         self.progress.num_finished(),
+                         self.progress.num_assets());
                 if let Some(entity) = data
                     .world
                     .exec(|finder: UiFinder<'_>| finder.find("loading"))
@@ -166,7 +198,6 @@ impl SimpleState for Loading {
                 }))
             }
             Completion::Loading => {
-                println!("still loading assets...");
                 Trans::None
             }
         }
@@ -179,11 +210,11 @@ impl SimpleState for Main {
 
         let assets = world.read_resource::<Assets>().clone();
 
+        init_player(world, assets);
         init_camera(world);
-        // init_lighting(data.world);
+        init_lighting(world);
         // world.create_entity().with(self.scene.clone()).build();
 
-        // XXX init player
     }
 
     fn handle_event(
@@ -350,43 +381,46 @@ impl<'a> System<'a> for ExampleSystem {
     fn run(&mut self, data: Self::SystemData) {
         let (mut lights, time, camera, mut transforms, mut state, mut ui_text, fps_counter, finder) =
             data;
-        let light_angular_velocity = -1.0;
-        let light_orbit_radius = 15.0;
-        let light_z = 6.0;
+        // let light_angular_velocity = -1.0;
+        // let light_orbit_radius = 15.0;
+        // let light_z = 6.0;
 
-        let camera_angular_velocity = 0.1;
+        // let camera_angular_velocity = 0.1;
 
-        state.light_angle += light_angular_velocity * time.delta_seconds();
-        state.camera_angle += camera_angular_velocity * time.delta_seconds();
+        // state.light_angle += light_angular_velocity * time.delta_seconds();
+        // state.camera_angle += camera_angular_velocity * time.delta_seconds();
 
-        let delta_rot = UnitQuaternion::from_axis_angle(
-            &Vector3::z_axis(),
-            camera_angular_velocity * time.delta_seconds(),
-        );
+        // let delta_rot = UnitQuaternion::from_axis_angle(
+        //     &Vector3::z_axis(),
+        //     camera_angular_velocity * time.delta_seconds(),
+        // );
+        // for (_, transform) in (&camera, &mut transforms).join() {
+        //     // Append the delta rotation to the current transform.
+        //     *transform.isometry_mut() = delta_rot * transform.isometry();
+        // }
         for (_, transform) in (&camera, &mut transforms).join() {
-            // Append the delta rotation to the current transform.
-            *transform.isometry_mut() = delta_rot * transform.isometry();
+            println!("Camera Transform: translation: {}, rotation: {}", transform.translation(), transform.rotation());
         }
 
-        for (point_light, transform) in
-            (&mut lights, &mut transforms)
-                .join()
-                .filter_map(|(light, transform)| {
-                    if let Light::Point(ref mut point_light) = *light {
-                        Some((point_light, transform))
-                    } else {
-                        None
-                    }
-                })
-        {
-            transform.set_xyz(
-                light_orbit_radius * state.light_angle.cos(),
-                light_orbit_radius * state.light_angle.sin(),
-                light_z,
-            );
+        // for (point_light, transform) in
+        //     (&mut lights, &mut transforms)
+        //         .join()
+        //         .filter_map(|(light, transform)| {
+        //             if let Light::Point(ref mut point_light) = *light {
+        //                 Some((point_light, transform))
+        //             } else {
+        //                 None
+        //             }
+        //         })
+        // {
+        //     transform.set_xyz(
+        //         light_orbit_radius * state.light_angle.cos(),
+        //         light_orbit_radius * state.light_angle.sin(),
+        //         light_z,
+        //     );
 
-            point_light.color = state.light_color.into();
-        }
+        //     point_light.color = state.light_color.into();
+        // }
 
         if let None = self.fps_display {
             if let Some(fps_entity) = finder.find("fps_text") {
