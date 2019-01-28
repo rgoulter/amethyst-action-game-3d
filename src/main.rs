@@ -24,6 +24,7 @@ use amethyst::{
     Error,
 };
 use amethyst_gltf::{GltfSceneAsset, GltfSceneFormat, GltfSceneLoaderSystem};
+use std::f32::consts::PI;
 
 // type MyPrefabData = BasicScenePrefab<Vec<PosNormTex>>;
 
@@ -102,6 +103,12 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
 fn init_player(world: &mut World, assets: Assets) -> Entity {
 // fn init_player(world: &mut World) -> Entity {
     let mut transform = Transform::default();
+    // transform.rotation = Quaternion::from(Euler::new(Deg(90.0), Deg(-90.0), Deg(0.0))).into();
+    *transform.rotation_mut() = UnitQuaternion::from_euler_angles(
+        PI / 2.0,
+        0.0,
+        PI
+    );
     let tank_mesh = assets.tank.clone();
     world
         .create_entity()
