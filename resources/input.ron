@@ -1,8 +1,8 @@
 (
     axes: {
         "player_rotation": Emulated(
-            pos: Key(D),
-            neg: Key(A),
+            pos: Key(A),
+            neg: Key(D),
         ),
         "player_acceleration": Emulated(
             pos: Key(W),

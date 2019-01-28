@@ -47,13 +47,15 @@ impl<'s> System<'s> for MovementSystem {
     );
 
     fn run(&mut self, (players, mut transforms, input, time): Self::SystemData) {
-        let x_move = input.axis_value("player_rotation").unwrap();
+        let turn = input.axis_value("player_rotation").unwrap();
         let y_move = input.axis_value("player_acceleration").unwrap();
 
         let dt = time.delta_seconds();
         for (_, transform) in (&players, &mut transforms).join() {
-            transform.translate_x(x_move as f32 * 2.0 * dt);
-            transform.translate_y(y_move as f32 * 2.0 * dt);
+            // transform.move_forward(y_move as f32 * 2.0 * dt);
+            transform.move_local(Vector3::new(0.0, y_move as f32 * 2.0 * dt, 0.0));
+            // transform.yaw_local(turn as f32 * PI / 2.0 * dt);
+            transform.rotate_local(Vector3::z_axis(), turn as f32 * PI / 2.0 * dt);
         }
     }
 }
@@ -167,22 +169,24 @@ fn init_grid(world: &mut World, assets: Assets) -> Entity {
 }
 
 fn init_player(world: &mut World, assets: Assets) -> Entity {
-// fn init_player(world: &mut World) -> Entity {
     let mut transform = Transform::default();
-    // transform.rotation = Quaternion::from(Euler::new(Deg(90.0), Deg(-90.0), Deg(0.0))).into();
-    // *transform.rotation_mut() = UnitQuaternion::from_euler_angles(
-    //     PI / 2.0,
-    //     0.0,
-    //     0.0
-    // );
-    let tank_mesh = assets.tank.clone();
-    world
+
+    let player = world
         .create_entity()
-        .with(transform)
+        .with(transform.clone())
         .with(Player)
+        .build();
+
+    let tank_mesh = assets.tank.clone();
+    let tank_entity = world
+        .create_entity()
+        .with(transform.clone())
         .with(tank_mesh)
         .with(assets.green_material.clone())
-        .build()
+        .with(Parent { entity: player })
+        .build();
+
+    player
 }
 
 // fn init_camera(world: &mut World, parent: Entity) {
@@ -232,8 +236,6 @@ fn init_lighting(world: &mut World) {
     world.exec(
         |mut color: Write<'_, AmbientColor>| {
             color.0 = [0.5; 4].into();
-            // color.0 = Rgba(0.5, 0.5, 0.5, 1.0)
-            // color = (Rgba(0.5, 0.5, 0.5, 1.0),) // ??? WTF is needed to get this to compile
         },
     );
 
