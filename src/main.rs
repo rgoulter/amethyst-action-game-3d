@@ -52,10 +52,10 @@ impl<'s> System<'s> for MovementSystem {
 
         let dt = time.delta_seconds();
         for (_, transform) in (&players, &mut transforms).join() {
-            // transform.move_forward(y_move as f32 * 2.0 * dt);
-            transform.move_local(Vector3::new(0.0, y_move as f32 * 2.0 * dt, 0.0));
-            // transform.yaw_local(turn as f32 * PI / 2.0 * dt);
-            transform.rotate_local(Vector3::z_axis(), turn as f32 * PI / 2.0 * dt);
+            transform.move_forward(y_move as f32 * 2.0 * dt);
+            // transform.move_local(Vector3::new(0.0, y_move as f32 * 2.0 * dt, 0.0));
+            transform.yaw_local(turn as f32 * PI / 2.0 * dt);
+            // transform.rotate_local(Vector3::z_axis(), turn as f32 * PI / 2.0 * dt);
         }
     }
 }
@@ -150,7 +150,9 @@ fn init_grid(world: &mut World, assets: Assets) -> Entity {
                 let tx = -0.5 + (x as f32 - (grid_num_rows / 2) as f32);
                 let ty = 0.5 + (y as f32 - (grid_num_cols / 2) as f32);
                 // println!("make grid at {}, {} for {}, {}", tx, ty, x, y);
-                transform.set_xyz(tx, ty, -0.125);
+                transform.set_xyz(tx, 0.0, ty);
+                transform.set_xyz(tx, 0.0, ty);
+                transform.rotate_local(Vector3::x_axis(), -PI / 2.0);
 
                 let material = assets.grey_material.clone();
                 let grid_mesh = assets.grid.clone();
@@ -177,6 +179,8 @@ fn init_player(world: &mut World, assets: Assets) -> Entity {
         .with(Player)
         .build();
 
+    // front of the model in Blender is -Y;
+    // export from blender with Z foward, Y up.
     let tank_mesh = assets.tank.clone();
     let tank_entity = world
         .create_entity()
@@ -192,12 +196,12 @@ fn init_player(world: &mut World, assets: Assets) -> Entity {
 // fn init_camera(world: &mut World, parent: Entity) {
 fn init_camera(world: &mut World) {
     // let position = Translation3::new(0.0, -20.0, 10.0);
-    let position = Translation3::new(0.0, -15.0, 15.0);
+    let position = Translation3::new(0.0, 15.0, 15.0);
     // let rotation = UnitQuaternion::from_euler_angles(0.7933533, 0.6087614, 0.0);
     // let rotation = Quaternion::new(0.7933533, 0.6087614, 0.0, 0.0);
     // let rotation = UnitQuaternion::new_normalize(rotation);
     let rotation = UnitQuaternion::from_euler_angles(
-        PI / 4.0,
+        -PI / 4.0,
         0.0,
         0.0
     );
@@ -216,7 +220,7 @@ fn init_camera(world: &mut World) {
 }
 
 fn init_lighting(world: &mut World) {
-    let position = Translation3::new(15.0, 0.0, 6.0);
+    let position = Translation3::new(15.0, 6.0, 0.0);
     let rotation = Quaternion::new(0.7933533, 0.6087614, 0.0, 0.0);
     let rotation = UnitQuaternion::new_normalize(rotation);
     let scale = Vector3::new(1.0, 1.0, 1.0);
@@ -243,7 +247,7 @@ fn init_lighting(world: &mut World) {
     let direction_light = DirectionalLight {
         color: Rgba(0.5, 0.5, 0.5, 1.0),
         // direction: [0.0, 0.05, 0.03]
-        direction: [-0.1, -0.1, -1.0]
+        direction: [-0.1, -0.1, 1.0]
     };
     world
         .create_entity()
