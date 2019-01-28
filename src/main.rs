@@ -9,12 +9,13 @@ use amethyst::{
         nalgebra::{UnitQuaternion, Vector3, Translation3, Quaternion},
         timing::Time,
         transform::{Transform, TransformBundle},
+        Parent,
     },
     ecs::{NullStorage},
     ecs::prelude::{Component, Entity, Join, Read, ReadStorage, System, Write, WriteStorage},
     input::{get_key, is_close_requested, is_key_down, InputBundle, InputHandler},
     prelude::*,
-    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection, MeshHandle, ObjFormat, Material, MaterialDefaults, PointLight, Rgba, DirectionalLight,},
+    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection, MeshHandle, ObjFormat, Material, MaterialDefaults, PointLight, Rgba, DirectionalLight, Shape, MeshData, ShapeUpload,},
     ui::{UiBundle, UiCreator, UiFinder, UiText},
     utils::{
         application_root_dir,
@@ -58,7 +59,9 @@ impl<'s> System<'s> for MovementSystem {
 #[derive(Clone)]
 pub struct Assets {
     tank: MeshHandle,
+    grid: MeshHandle,
     green_material: Material,
+    grey_material: Material,
 }
 
 pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
@@ -83,7 +86,7 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             let p2: &mut ProgressCounter = progress;
             loader.load_from_data(
             [0.3, 1.0, 0.3, 1.0].into(),
-            progress,
+            p2,
             &tex_storage
         ) };
         let green_material = Material {
@@ -92,13 +95,73 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             ..mat_defaults.0.clone()
         };
 
+        let grey_texture = {
+            let p2: &mut ProgressCounter = progress;
+            loader.load_from_data(
+            [0.3, 0.3, 0.3, 1.0].into(),
+            p2,
+            &tex_storage
+        ) };
+        let grey_material = Material {
+            albedo: grey_texture.clone(),
+            ambient_occlusion: grey_texture.clone(),
+            ..mat_defaults.0.clone()
+        };
+
+        let divisions = None;
+        let grid_shape = Shape::Plane(divisions);
+        let scale = Some((0.5, 0.5, 0.5));
+        let grid_mesh_data = grid_shape.generate::<Vec<PosNormTex>>(scale);
+        let grid = {
+            let grid_progress: &mut ProgressCounter = progress;
+            loader.load_from_data(grid_mesh_data, grid_progress, &mesh_storage)
+        };
+
         Assets {
             tank,
+            grid,
             green_material,
+            grey_material,
         }
     };
 
     world.add_resource(assets);
+}
+
+fn init_grid(world: &mut World, assets: Assets) -> Entity {
+    let mut transform = Transform::default();
+
+    let grid_root = world
+        .create_entity()
+        .with(transform)
+        .build();
+
+    let grid_num_rows = 64;
+    let grid_num_cols = 64;
+
+    for x in 0..grid_num_rows {
+        for y in 0..grid_num_rows {
+            if (x + y) % 2 == 1 {
+                let mut transform = Transform::default();
+                let tx = -0.5 + (x as f32 - (grid_num_rows / 2) as f32);
+                let ty = 0.5 + (y as f32 - (grid_num_cols / 2) as f32);
+                // println!("make grid at {}, {} for {}, {}", tx, ty, x, y);
+                transform.set_xyz(tx, ty, 0.0);
+
+                let material = assets.grey_material.clone();
+                let grid_mesh = assets.grid.clone();
+                world
+                    .create_entity()
+                    .with(transform)
+                    .with(grid_mesh)
+                    .with(material)
+                    .with(Parent { entity: grid_root })
+                    .build();
+            }
+        }
+    }
+
+    grid_root
 }
 
 fn init_player(world: &mut World, assets: Assets) -> Entity {
@@ -154,23 +217,27 @@ fn init_lighting(world: &mut World) {
     let transform = Transform::new(position, rotation, scale);
     let point_light = PointLight {
         color: Rgba(1.0, 1.0, 1.0, 1.0),
-        intensity: 500.0,
+        intensity: 50.0,
         radius: 1000.0,
         smoothness: 1.0,
     };
-    world
-        .create_entity()
-        .with(Light::Point(point_light))
-        .with(transform)
-        .build();
+    // world
+    //     .create_entity()
+    //     .with(Light::Point(point_light))
+    //     .with(transform.clone())
+    //     .build();
+
+
 
     let direction_light = DirectionalLight {
-        color: Rgba(0.2, 0.2, 0.2, 0.2),
-        direction: [0.0, 0.5, 0.3]
+        color: Rgba(0.5, 0.5, 0.5, 1.0),
+        // direction: [0.0, 0.05, 0.03]
+        direction: [-0.1, -0.1, -1.0]
     };
     world
         .create_entity()
         .with(Light::Directional(direction_light))
+        .with(transform.clone())
         .build();
 }
 
@@ -233,7 +300,9 @@ impl SimpleState for Main {
 
         let assets = world.read_resource::<Assets>().clone();
 
-        init_player(world, assets);
+        world.register::<MeshData>();
+        init_grid(world, assets.clone());
+        init_player(world, assets.clone());
         init_camera(world);
         init_lighting(world);
         // world.create_entity().with(self.scene.clone()).build();
