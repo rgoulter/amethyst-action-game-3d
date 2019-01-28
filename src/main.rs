@@ -43,15 +43,17 @@ impl<'s> System<'s> for MovementSystem {
         ReadStorage<'s, Player>,
         WriteStorage<'s, Transform>,
         Read<'s, InputHandler<String, String>>,
+        Read<'s, Time>,
     );
 
-    fn run(&mut self, (players, mut transforms, input): Self::SystemData) {
-        let x_move = input.axis_value("entity_x").unwrap();
-        let y_move = input.axis_value("entity_y").unwrap();
+    fn run(&mut self, (players, mut transforms, input, time): Self::SystemData) {
+        let x_move = input.axis_value("player_rotation").unwrap();
+        let y_move = input.axis_value("player_acceleration").unwrap();
 
+        let dt = time.delta_seconds();
         for (_, transform) in (&players, &mut transforms).join() {
-            transform.translate_x(x_move as f32 * 5.0);
-            transform.translate_y(y_move as f32 * 5.0);
+            transform.translate_x(x_move as f32 * 2.0 * dt);
+            transform.translate_y(y_move as f32 * 2.0 * dt);
         }
     }
 }
@@ -91,7 +93,7 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
         ) };
         let green_material = Material {
             albedo: green_texture.clone(),
-            ambient_occlusion: green_texture.clone(),
+            // ambient_occlusion: green_texture.clone(),
             ..mat_defaults.0.clone()
         };
 
@@ -104,7 +106,7 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
         ) };
         let grey_material = Material {
             albedo: grey_texture.clone(),
-            ambient_occlusion: grey_texture.clone(),
+            // ambient_occlusion: grey_texture.clone(),
             ..mat_defaults.0.clone()
         };
 
@@ -136,8 +138,8 @@ fn init_grid(world: &mut World, assets: Assets) -> Entity {
         .with(transform)
         .build();
 
-    let grid_num_rows = 64;
-    let grid_num_cols = 64;
+    let grid_num_rows = 8;
+    let grid_num_cols = 8;
 
     for x in 0..grid_num_rows {
         for y in 0..grid_num_rows {
@@ -146,7 +148,7 @@ fn init_grid(world: &mut World, assets: Assets) -> Entity {
                 let tx = -0.5 + (x as f32 - (grid_num_rows / 2) as f32);
                 let ty = 0.5 + (y as f32 - (grid_num_cols / 2) as f32);
                 // println!("make grid at {}, {} for {}, {}", tx, ty, x, y);
-                transform.set_xyz(tx, ty, 0.0);
+                transform.set_xyz(tx, ty, -0.125);
 
                 let material = assets.grey_material.clone();
                 let grid_mesh = assets.grid.clone();
@@ -177,7 +179,7 @@ fn init_player(world: &mut World, assets: Assets) -> Entity {
     world
         .create_entity()
         .with(transform)
-        // .with(Player)
+        .with(Player)
         .with(tank_mesh)
         .with(assets.green_material.clone())
         .build()
@@ -227,6 +229,13 @@ fn init_lighting(world: &mut World) {
     //     .with(transform.clone())
     //     .build();
 
+    world.exec(
+        |mut color: Write<'_, AmbientColor>| {
+            color.0 = [0.5; 4].into();
+            // color.0 = Rgba(0.5, 0.5, 0.5, 1.0)
+            // color = (Rgba(0.5, 0.5, 0.5, 1.0),) // ??? WTF is needed to get this to compile
+        },
+    );
 
 
     let direction_light = DirectionalLight {
@@ -336,12 +345,12 @@ impl SimpleState for Main {
                         state.light_color = [0.2, 0.2, 0.8, 1.0];
                     });
                 }
-                Some((VirtualKeyCode::W, ElementState::Pressed)) => {
-                    w.exec(|mut state: Write<'_, DemoState>| {
-                        state.light_color = [1.0, 1.0, 1.0, 1.0];
-                    });
-                }
-                Some((VirtualKeyCode::A, ElementState::Pressed)) => {
+                // Some((VirtualKeyCode::W, ElementState::Pressed)) => {
+                //     w.exec(|mut state: Write<'_, DemoState>| {
+                //         state.light_color = [1.0, 1.0, 1.0, 1.0];
+                //     });
+                // }
+                Some((VirtualKeyCode::L, ElementState::Pressed)) => {
                     w.exec(
                         |(mut state, mut color): (
                             Write<'_, DemoState>,
@@ -357,30 +366,30 @@ impl SimpleState for Main {
                         },
                     );
                 }
-                Some((VirtualKeyCode::D, ElementState::Pressed)) => {
-                    w.exec(
-                        |(mut state, mut lights): (
-                            Write<'_, DemoState>,
-                            WriteStorage<'_, Light>,
-                        )| {
-                            if state.directional_light {
-                                state.directional_light = false;
-                                for light in (&mut lights).join() {
-                                    if let Light::Directional(ref mut d) = *light {
-                                        d.color = [0.0; 4].into();
-                                    }
-                                }
-                            } else {
-                                state.directional_light = true;
-                                for light in (&mut lights).join() {
-                                    if let Light::Directional(ref mut d) = *light {
-                                        d.color = [0.2; 4].into();
-                                    }
-                                }
-                            }
-                        },
-                    );
-                }
+                // Some((VirtualKeyCode::D, ElementState::Pressed)) => {
+                //     w.exec(
+                //         |(mut state, mut lights): (
+                //             Write<'_, DemoState>,
+                //             WriteStorage<'_, Light>,
+                //         )| {
+                //             if state.directional_light {
+                //                 state.directional_light = false;
+                //                 for light in (&mut lights).join() {
+                //                     if let Light::Directional(ref mut d) = *light {
+                //                         d.color = [0.0; 4].into();
+                //                     }
+                //                 }
+                //             } else {
+                //                 state.directional_light = true;
+                //                 for light in (&mut lights).join() {
+                //                     if let Light::Directional(ref mut d) = *light {
+                //                         d.color = [0.2; 4].into();
+                //                     }
+                //                 }
+                //             }
+                //         },
+                //     );
+                // }
                 Some((VirtualKeyCode::P, ElementState::Pressed)) => {
                     w.exec(|mut state: Write<'_, DemoState>| {
                         if state.point_light {
@@ -412,8 +421,18 @@ fn main() -> Result<(), Error> {
          app_root
      );
 
+     let input_config_path = format!(
+         "{}/resources/input.ron",
+         app_root
+     );
+
     let game_data = GameDataBuilder::default()
         // .with(PrefabLoaderSystem::<MyPrefabData>::default(), "", &[])
+        .with_bundle(
+            InputBundle::<String, String>::new()
+                .with_bindings_from_file(input_config_path)?,
+        )?
+        .with(MovementSystem, "movement", &[])
         .with::<ExampleSystem>(ExampleSystem::default(), "example_system", &[])
         .with_bundle(TransformBundle::new().with_dep(&["example_system"]))?
         // .with(
@@ -424,8 +443,7 @@ fn main() -> Result<(), Error> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(HotReloadBundle::default())?
         .with_bundle(FPSCounterBundle::default())?
-        .with_basic_renderer(display_config_path, DrawShaded::<PosNormTex>::new(), true)?
-        .with_bundle(InputBundle::<String, String>::new())?;
+        .with_basic_renderer(display_config_path, DrawShaded::<PosNormTex>::new(), true)?;
     let mut game = Application::build(resources_directory, Loading::default())?.build(game_data)?;
     game.run();
     Ok(())

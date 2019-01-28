@@ -1,10 +1,10 @@
 (
     axes: {
-        "entity_x": Emulated(
+        "player_rotation": Emulated(
             pos: Key(D),
             neg: Key(A),
         ),
-        "entity_y": Emulated(
+        "player_acceleration": Emulated(
             pos: Key(W),
             neg: Key(S),
         ),
