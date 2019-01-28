@@ -14,7 +14,7 @@ use amethyst::{
     ecs::prelude::{Component, Entity, Join, Read, ReadStorage, System, Write, WriteStorage},
     input::{get_key, is_close_requested, is_key_down, InputBundle, InputHandler},
     prelude::*,
-    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection, MeshHandle, ObjFormat, Material, MaterialDefaults, PointLight, Rgba,},
+    renderer::{AmbientColor, Camera, DrawShaded, ElementState, Light, PosNormTex, VirtualKeyCode, Projection, MeshHandle, ObjFormat, Material, MaterialDefaults, PointLight, Rgba, DirectionalLight,},
     ui::{UiBundle, UiCreator, UiFinder, UiText},
     utils::{
         application_root_dir,
@@ -87,7 +87,8 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             &tex_storage
         ) };
         let green_material = Material {
-            albedo: green_texture,
+            albedo: green_texture.clone(),
+            ambient_occlusion: green_texture.clone(),
             ..mat_defaults.0.clone()
         };
 
@@ -104,11 +105,11 @@ fn init_player(world: &mut World, assets: Assets) -> Entity {
 // fn init_player(world: &mut World) -> Entity {
     let mut transform = Transform::default();
     // transform.rotation = Quaternion::from(Euler::new(Deg(90.0), Deg(-90.0), Deg(0.0))).into();
-    *transform.rotation_mut() = UnitQuaternion::from_euler_angles(
-        PI / 2.0,
-        0.0,
-        0.0
-    );
+    // *transform.rotation_mut() = UnitQuaternion::from_euler_angles(
+    //     PI / 2.0,
+    //     0.0,
+    //     0.0
+    // );
     let tank_mesh = assets.tank.clone();
     world
         .create_entity()
@@ -122,10 +123,16 @@ fn init_player(world: &mut World, assets: Assets) -> Entity {
 // fn init_camera(world: &mut World, parent: Entity) {
 fn init_camera(world: &mut World) {
     // let position = Translation3::new(0.0, -20.0, 10.0);
-    let position = Translation3::new(0.0, -20.0, 10.0);
+    let position = Translation3::new(0.0, -15.0, 15.0);
     // let rotation = UnitQuaternion::from_euler_angles(0.7933533, 0.6087614, 0.0);
-    let rotation = Quaternion::new(0.7933533, 0.6087614, 0.0, 0.0);
-    let rotation = UnitQuaternion::new_normalize(rotation);
+    // let rotation = Quaternion::new(0.7933533, 0.6087614, 0.0, 0.0);
+    // let rotation = UnitQuaternion::new_normalize(rotation);
+    let rotation = UnitQuaternion::from_euler_angles(
+        PI / 4.0,
+        0.0,
+        0.0
+    );
+
     let scale = Vector3::new(1.0, 1.0, 1.0);
     let transform = Transform::new(position, rotation, scale);
     world
@@ -147,14 +154,23 @@ fn init_lighting(world: &mut World) {
     let transform = Transform::new(position, rotation, scale);
     let point_light = PointLight {
         color: Rgba(1.0, 1.0, 1.0, 1.0),
-        intensity: 50.0,
-        radius: 100.0,
+        intensity: 500.0,
+        radius: 1000.0,
         smoothness: 1.0,
     };
     world
         .create_entity()
         .with(Light::Point(point_light))
         .with(transform)
+        .build();
+
+    let direction_light = DirectionalLight {
+        color: Rgba(0.2, 0.2, 0.2, 0.2),
+        direction: [0.0, 0.5, 0.3]
+    };
+    world
+        .create_entity()
+        .with(Light::Directional(direction_light))
         .build();
 }
 
