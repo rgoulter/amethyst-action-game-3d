@@ -1,17 +1,23 @@
 use amethyst;
 
 use amethyst::{
-    assets::{Loader, ProgressCounter},
+    assets::{Handle, Loader, ProgressCounter},
     prelude::*,
     renderer::{
         Material, MaterialDefaults, MeshHandle, ObjFormat,
         PosNormTex, Shape,
     },
 };
+use amethyst_gltf::{
+    GltfSceneAsset,
+    GltfSceneFormat,
+    GltfSceneOptions,
+};
 
 #[derive(Clone)]
 pub struct Assets {
     pub tank: MeshHandle,
+    pub tank_gltf: Handle<GltfSceneAsset>,
     pub grid: MeshHandle,
     pub green_material: Material,
     pub grey_material: Material,
@@ -21,6 +27,7 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
     let assets = {
         let mesh_storage = world.read_resource();
         let tex_storage = world.read_resource();
+        let gltf_prefab_storage = world.read_resource();
         let mat_defaults = world.read_resource::<MaterialDefaults>();
         let loader = world.read_resource::<Loader>();
 
@@ -33,6 +40,16 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             (),
             p1,
             &mesh_storage,
+        ) };
+
+        let tank_gltf = {
+            let tank_gltf_progress: &mut ProgressCounter = progress;
+            loader.load(
+            "mesh/tank.gltf",
+            GltfSceneFormat,
+            GltfSceneOptions::default(),
+            tank_gltf_progress,
+            &gltf_prefab_storage,
         ) };
 
         let green_texture = {
@@ -72,6 +89,7 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
 
         Assets {
             tank,
+            tank_gltf,
             grid,
             green_material,
             grey_material,

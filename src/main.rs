@@ -13,6 +13,7 @@ use amethyst::{
     },
     Error,
 };
+use amethyst_gltf::GltfSceneLoaderSystem;
 
 use crate::systems::*;
 use crate::game::*;
@@ -46,6 +47,7 @@ fn main() -> Result<(), Error> {
         )?
         .with(MovementSystem, "movement", &[])
         .with::<UISystem>(UISystem::default(), "game_ui_system", &[])
+        .with(GltfSceneLoaderSystem::default(), "gltf_loader", &[])
         .with_bundle(TransformBundle::new().with_dep(&[]))?
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(HotReloadBundle::default())?
