@@ -1,12 +1,22 @@
 use amethyst;
 
 use amethyst::{
-    assets::{HotReloadBundle},
+    assets::{HotReloadBundle, PrefabLoaderSystem},
     core::transform::{TransformBundle},
     input::{InputBundle},
     prelude::*,
-    renderer::{DrawShaded, PosNormTex},
-    ui::{UiBundle},
+    renderer::{
+        pipe::*,
+        ALPHA,
+        ColorMask,
+        DepthMode,
+        DisplayConfig,
+        DrawShaded,
+        DrawPbmSeparate,
+        PosNormTex,
+        RenderBundle,
+    },
+    ui::{DrawUi, UiBundle},
     utils::{
         application_root_dir,
         fps_counter::{FPSCounterBundle},
@@ -40,6 +50,26 @@ fn main() -> Result<(), Error> {
          app_root
      );
 
+
+    let display_config = DisplayConfig::load(display_config_path);
+    let pipe = Pipeline::build().with_stage(
+        Stage::with_backbuffer()
+            .clear_target([0.1, 0.1, 0.1, 1.0], 1024.0)
+            // .with_pass(DrawFlat2D::new().with_transparency(
+            //     ColorMask::all(),
+            //     ALPHA,
+            //     Some(DepthMode::LessEqualWrite),
+            // ))
+            .with_pass(DrawShaded::<PosNormTex>::new())
+            .with_pass(DrawPbmSeparate::new()
+                 .with_transparency(
+                     ColorMask::all(),
+                     ALPHA,
+                     Some(DepthMode::LessEqualWrite)
+                 ))
+            .with_pass(DrawUi::new()),
+    );
+
     let game_data = GameDataBuilder::default()
         .with_bundle(
             InputBundle::<String, String>::new()
@@ -52,7 +82,18 @@ fn main() -> Result<(), Error> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(HotReloadBundle::default())?
         .with_bundle(FPSCounterBundle::default())?
-        .with_basic_renderer(display_config_path, DrawShaded::<PosNormTex>::new(), true)?;
+        .with_bundle(RenderBundle::new(pipe, Some(display_config)))?
+        // .with_basic_renderer(
+        //     display_config_path,
+        //     // DrawShaded::<PosNormTex>::new(),
+        //     DrawPbmSeparate::new()
+        //         .with_transparency(
+        //             ColorMask::all(),
+        //             ALPHA,
+        //             Some(DepthMode::LessEqualWrite)
+        //         ),
+        //     true)?
+        ;
     let mut game = Application::build(resources_directory, Loading::default())?.build(game_data)?;
     game.run();
     Ok(())

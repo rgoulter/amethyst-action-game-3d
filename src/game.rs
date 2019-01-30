@@ -1,24 +1,25 @@
 use amethyst;
 
 use amethyst::{
-    assets::{Completion, ProgressCounter},
+    assets::{AssetStorage, Completion, Handle, Prefab, ProgressCounter},
     core::{
         nalgebra::{Translation3, UnitQuaternion, Vector3,},
         transform::{Transform},
-        Parent,
+        Named, Parent,
     },
     ecs::{NullStorage},
     ecs::prelude::{
-        Component, Entity, Write,
+        Component, Entity, Join, Write,
     },
     input::{is_close_requested, is_key_down},
     prelude::*,
     renderer::{
-        AmbientColor, Camera, DirectionalLight, Light, MeshData,
+        AmbientColor, Camera, DirectionalLight, Light, Mesh, MeshData,
         Projection, Rgba, VirtualKeyCode,
     },
     ui::{UiCreator, UiFinder},
 };
+use amethyst_gltf::{GltfPrefab};
 use std::f32::consts::PI;
 
 use crate::graphics::*;
@@ -78,14 +79,41 @@ fn init_player(world: &mut World, assets: Assets) -> Entity {
         .with(Player)
         .build();
 
+    let tank_gltf_prefab_handle = assets.tank_gltf.clone();
+    // let gltf_prefab_storage: AssetStorage<Prefab<GltfPrefab>> = world.read_resource();
+    // let tank_gltf_prefab: Prefab<GltfPrefab> = gltf_prefab_storage.get(tank_gltf_prefab_handle);
+    // println!("tank gltf prefab has {} entities", tank_gltf_prefab.len());
+    /*
+    for gltf_entity in tank_gltf_prefab.entities() {
+        if let Some(name) = gltf_entity.name {
+            println!("gltf_entity {} is named {}", gltf_entity, name);
+        }
+    }
+    // */
+
+    {
+        let meshes = world.read_storage::<Handle<Mesh>>();
+        let names = world.read_storage::<Named>();
+        println!("init_player:: exec'ing to list Named:");
+        for (name) in (&names).join() {
+            println!("+ found Named entity! name={}", name.name);
+        }
+        println!("init_player:: exec'ing to list Named, Mesh:");
+        for (name, mesh) in (&names, &meshes).join() {
+            println!("+ found Named,Mesh! name={}", name.name);
+        }
+    }
+
     // front of the model in Blender is -Y;
     // export from blender with Z foward, Y up.
     let tank_mesh = assets.tank.clone();
+    let tank_gltf_mesh = assets.tank_gltf.clone();
     let _tank_entity = world
         .create_entity()
         .with(transform.clone())
-        .with(tank_mesh)
-        .with(assets.green_material.clone())
+        // .with(tank_mesh)
+        .with(tank_gltf_mesh)
+        // .with(assets.green_material.clone())
         .with(Parent { entity: player })
         .build();
 

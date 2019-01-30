@@ -27,7 +27,7 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
     let assets = {
         let mesh_storage = world.read_resource();
         let tex_storage = world.read_resource();
-        let gltf_prefab_storage = world.read_resource();
+        let gltf_prefab_storage = world.write_resource();
         let mat_defaults = world.read_resource::<MaterialDefaults>();
         let loader = world.read_resource::<Loader>();
 
