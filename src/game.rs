@@ -79,17 +79,21 @@ fn init_player(world: &mut World, assets: Assets) -> Entity {
         .with(Player)
         .build();
 
-    // front of the model in Blender is -Y;
-    // but the GLTF export has it as +Z.
     let mut tank_transform = Transform::default();
     tank_transform.yaw_local(PI); // <-- this should turn the model around
+    let _model_rotation = world
+        .create_entity()
+        .with(Parent { entity: player })
+        .with(tank_transform)
+        .build();
+
+    // front of the model in Blender is -Y;
+    // but the GLTF export has it as +Z.
     let tank_gltf_mesh = assets.tank_gltf.clone();
     let _tank_entity = world
         .create_entity()
-        .with(tank_transform) // <-- but it has no effect??
         .with(tank_gltf_mesh)
-        // .with(assets.green_material.clone())
-        .with(Parent { entity: player })
+        .with(Parent { entity: _model_rotation })
         .build();
 
     player
