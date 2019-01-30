@@ -60,7 +60,7 @@ fn main() -> Result<(), Error> {
             //     ALPHA,
             //     Some(DepthMode::LessEqualWrite),
             // ))
-            .with_pass(DrawShaded::<PosNormTex>::new())
+            //.with_pass(DrawShaded::<PosNormTex>::new())
             .with_pass(DrawPbmSeparate::new()
                  .with_transparency(
                      ColorMask::all(),

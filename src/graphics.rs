@@ -4,6 +4,7 @@ use amethyst::{
     assets::{Handle, Loader, ProgressCounter},
     prelude::*,
     renderer::{
+        ComboMeshCreator,
         Material, MaterialDefaults, MeshHandle, ObjFormat,
         PosNormTex, Shape,
     },
@@ -81,7 +82,8 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
         let divisions = None;
         let grid_shape = Shape::Plane(divisions);
         let scale = Some((0.5, 0.5, 0.5));
-        let grid_mesh_data = grid_shape.generate::<Vec<PosNormTex>>(scale);
+        // let grid_mesh_data = grid_shape.generate::<Vec<PosNormTex>>(scale);
+        let grid_mesh_data = grid_shape.generate::<ComboMeshCreator>(scale);
         let grid = {
             let grid_progress: &mut ProgressCounter = progress;
             loader.load_from_data(grid_mesh_data, grid_progress, &mesh_storage)
