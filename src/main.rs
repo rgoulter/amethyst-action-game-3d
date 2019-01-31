@@ -51,17 +51,10 @@ fn main() -> Result<(), Error> {
          app_root
      );
 
-
     let display_config = DisplayConfig::load(display_config_path);
     let pipe = Pipeline::build().with_stage(
         Stage::with_backbuffer()
             .clear_target([0.1, 0.1, 0.1, 1.0], 1024.0)
-            // .with_pass(DrawFlat2D::new().with_transparency(
-            //     ColorMask::all(),
-            //     ALPHA,
-            //     Some(DepthMode::LessEqualWrite),
-            // ))
-            //.with_pass(DrawShaded::<PosNormTex>::new())
             .with_pass(DrawPbmSeparate::new()
                  .with_transparency(
                      ColorMask::all(),
@@ -83,19 +76,13 @@ fn main() -> Result<(), Error> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(HotReloadBundle::default())?
         .with_bundle(FPSCounterBundle::default())?
-        .with_bundle(RenderBundle::new(pipe, Some(display_config)))?
-        // .with_basic_renderer(
-        //     display_config_path,
-        //     // DrawShaded::<PosNormTex>::new(),
-        //     DrawPbmSeparate::new()
-        //         .with_transparency(
-        //             ColorMask::all(),
-        //             ALPHA,
-        //             Some(DepthMode::LessEqualWrite)
-        //         ),
-        //     true)?
-        ;
-    let mut game = Application::build(resources_directory, Loading::default())?.build(game_data)?;
+        .with_bundle(RenderBundle::new(pipe, Some(display_config)))?;
+
+    let init_state = Loading::default();
+
+    let mut game = Application::build(resources_directory, init_state)?
+        .build(game_data)?;
+
     game.run();
     Ok(())
 }

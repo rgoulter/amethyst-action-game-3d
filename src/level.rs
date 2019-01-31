@@ -22,10 +22,15 @@ use crate::player::{
     init_player,
 };
 
-pub fn init_level(world: &mut World, assets: Assets) -> () {
+#[derive(Clone, Default)]
+pub struct Level {
+    player_location: Transform,
+}
+
+pub fn init_level(world: &mut World, assets: Assets, level: &Level) -> () {
     world.register::<MeshData>();
     init_grid(world, assets.clone());
-    init_player(world, assets.clone());
+    init_player(world, assets.clone(), level.player_location.clone());
     init_camera(world);
     init_lighting(world);
 }

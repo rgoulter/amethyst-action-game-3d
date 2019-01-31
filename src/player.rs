@@ -21,12 +21,10 @@ impl Component for Player {
     type Storage = NullStorage<Self>;
 }
 
-pub fn init_player(world: &mut World, assets: Assets) -> Entity {
-    let transform = Transform::default();
-
+pub fn init_player(world: &mut World, assets: Assets, init_location: Transform) -> Entity {
     let player = world
         .create_entity()
-        .with(transform.clone())
+        .with(init_location)
         .with(Player)
         .build();
 
