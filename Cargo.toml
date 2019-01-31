@@ -8,3 +8,11 @@ edition = "2018"
 amethyst = "0.10.0"
 amethyst_gltf = "*"
 gltf = "*"
+
+[[bin]]
+name = "action-game-3d"
+path = "src/main.rs"
+
+[[bin]]
+name = "simple-level"
+path = "src/simple_level.rs"
