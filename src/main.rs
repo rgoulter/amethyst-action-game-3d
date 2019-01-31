@@ -78,7 +78,7 @@ fn main() -> Result<(), Error> {
         .with_bundle(FPSCounterBundle::default())?
         .with_bundle(RenderBundle::new(pipe, Some(display_config)))?;
 
-    let init_state = Loading::default();
+    let init_state = MainMenu::default();
 
     let mut game = Application::build(resources_directory, init_state)?
         .build(game_data)?;
