@@ -6,7 +6,7 @@ use amethyst::{
     renderer::{
         ComboMeshCreator,
         Material, MaterialDefaults, MeshHandle, ObjFormat,
-        PosNormTex, Shape,
+        Shape,
     },
 };
 use amethyst_gltf::{

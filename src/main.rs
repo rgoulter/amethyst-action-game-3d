@@ -1,7 +1,7 @@
 use amethyst;
 
 use amethyst::{
-    assets::{HotReloadBundle, PrefabLoaderSystem},
+    assets::{HotReloadBundle,},
     core::transform::{TransformBundle},
     input::{InputBundle},
     prelude::*,
@@ -11,9 +11,7 @@ use amethyst::{
         ColorMask,
         DepthMode,
         DisplayConfig,
-        DrawShaded,
         DrawPbmSeparate,
-        PosNormTex,
         RenderBundle,
     },
     ui::{DrawUi, UiBundle},

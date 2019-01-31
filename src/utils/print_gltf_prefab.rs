@@ -1,8 +1,5 @@
 use amethyst::{
     assets::{AssetStorage, Handle},
-    core::{
-        Named,
-    },
     prelude::*,
 };
 use amethyst_gltf::{
@@ -15,7 +12,7 @@ pub fn print_info_about_gltf_prefab(gltf_prefab: &mut GltfPrefab) -> () {
     if let Some(name) = &gltf_prefab.name {
         println!("- name = {}", name.name);
     }
-    if let Some(transform) = &gltf_prefab.transform {
+    if let Some(_transform) = &gltf_prefab.transform {
         println!("- has transform");
     }
 }

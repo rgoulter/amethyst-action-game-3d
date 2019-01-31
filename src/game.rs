@@ -1,20 +1,20 @@
 use amethyst;
 
 use amethyst::{
-    assets::{AssetStorage, Completion, Handle, Prefab, ProgressCounter},
+    assets::{Completion, ProgressCounter},
     core::{
         nalgebra::{Translation3, UnitQuaternion, Vector3,},
         transform::{Transform},
-        Named, Parent,
+        Parent,
     },
     ecs::{NullStorage},
     ecs::prelude::{
-        Component, Entity, Join, Write,
+        Component, Entity, Write,
     },
     input::{is_close_requested, is_key_down},
     prelude::*,
     renderer::{
-        AmbientColor, Camera, DirectionalLight, Light, Mesh, MeshData,
+        AmbientColor, Camera, DirectionalLight, Light, MeshData,
         Projection, Rgba, VirtualKeyCode,
     },
     ui::{UiCreator, UiFinder},
