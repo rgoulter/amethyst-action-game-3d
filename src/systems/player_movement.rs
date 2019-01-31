@@ -14,7 +14,7 @@ use amethyst::{
 };
 use std::f32::consts::PI;
 
-use crate::game::*;
+use crate::player::Player;
 
 pub struct MovementSystem;
 

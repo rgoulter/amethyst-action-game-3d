@@ -7,9 +7,8 @@ use amethyst::{
         transform::{Transform},
         Parent,
     },
-    ecs::{NullStorage},
     ecs::prelude::{
-        Component, Entity, Write,
+        Entity, Write,
     },
     input::{is_close_requested, is_key_down},
     prelude::*,
@@ -22,14 +21,9 @@ use amethyst::{
 use std::f32::consts::PI;
 
 use crate::graphics::*;
-use crate::utils::print_gltf_info;
-
-#[derive(Default)]
-pub struct Player;
-
-impl Component for Player {
-    type Storage = NullStorage<Self>;
-}
+use crate::player::{
+    init_player,
+};
 
 
 fn init_grid(world: &mut World, assets: Assets) -> Entity {
@@ -68,39 +62,6 @@ fn init_grid(world: &mut World, assets: Assets) -> Entity {
     }
 
     grid_root
-}
-
-fn init_player(world: &mut World, assets: Assets) -> Entity {
-    let transform = Transform::default();
-
-    let player = world
-        .create_entity()
-        .with(transform.clone())
-        .with(Player)
-        .build();
-
-    let mut tank_transform = Transform::default();
-    tank_transform.yaw_local(PI); // <-- this should turn the model around
-    let _model_rotation = world
-        .create_entity()
-        .with(Parent { entity: player })
-        .with(tank_transform)
-        .build();
-
-    // front of the model in Blender is -Y;
-    // but the GLTF export has it as +Z.
-    let tank_gltf_mesh = assets.tank_gltf.clone();
-    {
-        let w : &mut World = world;
-        print_gltf_info(w, &tank_gltf_mesh);
-    }
-    let _tank_entity = world
-        .create_entity()
-        .with(tank_gltf_mesh)
-        .with(Parent { entity: _model_rotation })
-        .build();
-
-    player
 }
 
 // fn init_camera(world: &mut World, parent: Entity) {
