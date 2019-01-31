@@ -19,10 +19,10 @@ use amethyst::{
     },
     ui::{UiCreator, UiFinder},
 };
-use amethyst_gltf::{GltfPrefab};
 use std::f32::consts::PI;
 
 use crate::graphics::*;
+use crate::utils::print_gltf_info;
 
 #[derive(Default)]
 pub struct Player;
@@ -90,6 +90,10 @@ fn init_player(world: &mut World, assets: Assets) -> Entity {
     // front of the model in Blender is -Y;
     // but the GLTF export has it as +Z.
     let tank_gltf_mesh = assets.tank_gltf.clone();
+    {
+        let w : &mut World = world;
+        print_gltf_info(w, &tank_gltf_mesh);
+    }
     let _tank_entity = world
         .create_entity()
         .with(tank_gltf_mesh)
@@ -128,7 +132,7 @@ fn init_camera(world: &mut World) {
 fn init_lighting(world: &mut World) {
     world.exec(
         |mut color: Write<'_, AmbientColor>| {
-            color.0 = [0.5; 4].into();
+            color.0 = [1.0; 4].into();
         },
     );
 
@@ -139,7 +143,7 @@ fn init_lighting(world: &mut World) {
     // let transform = Transform::new(position, rotation, scale);
 
     let direction_light = DirectionalLight {
-        color: Rgba(0.5, 0.5, 0.5, 1.0),
+        color: Rgba(1.0, 1.0, 1.0, 1.0),
         direction: [-0.1, -0.1, 1.0]
     };
     world

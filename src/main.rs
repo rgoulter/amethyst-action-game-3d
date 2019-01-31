@@ -31,6 +31,7 @@ use crate::game::*;
 mod game;
 mod graphics;
 mod systems;
+mod utils;
 
 fn main() -> Result<(), Error> {
     amethyst::start_logger(Default::default());
