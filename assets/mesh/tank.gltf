@@ -63,7 +63,7 @@
                     1
                 ],
                 "metallicFactor" : 0,
-                "roughnessFactor" : 0.5
+                "roughnessFactor" : 1
             }
         },
         {
@@ -76,7 +76,7 @@
                     1
                 ],
                 "metallicFactor" : 0,
-                "roughnessFactor" : 0.5
+                "roughnessFactor" : 1
             }
         },
         {
@@ -89,7 +89,7 @@
                     1
                 ],
                 "metallicFactor" : 0,
-                "roughnessFactor" : 0.5
+                "roughnessFactor" : 1
             }
         },
         {
@@ -102,7 +102,7 @@
                     1
                 ],
                 "metallicFactor" : 0,
-                "roughnessFactor" : 0.5
+                "roughnessFactor" : 1
             }
         }
     ],
