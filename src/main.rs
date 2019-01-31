@@ -28,6 +28,7 @@ use crate::game::*;
 
 mod game;
 mod graphics;
+mod level;
 mod player;
 mod systems;
 mod utils;
