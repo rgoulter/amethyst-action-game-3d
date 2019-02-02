@@ -1,0 +1,63 @@
+(
+    spritesheet_width: 224,
+    spritesheet_height: 32,
+    sprites: [
+        // 0: road
+        // 1: sand
+        // 2: sand (dark)
+        // 3: grass
+        // 4: grass (dark)
+        // 5: water
+        // 6: water (dark)
+
+        // 0: road
+        (
+            x: 0,
+            y: 0,
+            width: 32,
+            height: 32,
+        ),
+        // 1: sand
+        (
+            x: 32,
+            y: 0,
+            width: 32,
+            height: 32,
+        ),
+        // 2: sand (dark)
+        (
+            x: 64,
+            y: 0,
+            width: 32,
+            height: 32,
+        ),
+        // 3: grass
+        (
+            x: 96,
+            y: 0,
+            width: 32,
+            height: 32,
+        ),
+        // 4: grass (dark)
+        (
+            x: 128,
+            y: 0,
+            width: 32,
+            height: 32,
+        ),
+        // 5: water
+        (
+            x: 160,
+            y: 0,
+            width: 32,
+            height: 32,
+        ),
+        // 6: water (dark)
+        (
+            x: 192,
+            y: 0,
+            width: 32,
+            height: 32,
+        ),
+    ],
+)
