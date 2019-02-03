@@ -9,6 +9,7 @@ use amethyst::{
     },
     prelude::*,
     renderer::{
+        MeshHandle,
         AmbientColor, Camera, DirectionalLight, Light, MeshData,
         Projection, Rgba,
     },
@@ -29,10 +30,22 @@ pub struct Level {
 
 pub fn init_level(world: &mut World, assets: Assets, level: &Level) -> () {
     world.register::<MeshData>();
-    init_grid(world, assets.clone());
+    // init_grid(world, assets.clone());
     init_player(world, assets.clone(), level.player_location.clone());
     init_camera(world);
     init_lighting(world);
+}
+
+pub fn kludge_init_grid(world: &mut World, assets: Assets, kludge_mesh: MeshHandle) -> () {
+    let mut transform = Transform::default();
+    transform.rotate_local(Vector3::x_axis(), -PI / 2.0);
+
+    let grid = world
+        .create_entity()
+        .with(transform)
+        .with(assets.map_texture_material.clone())
+        .with(kludge_mesh)
+        .build();
 }
 
 fn init_grid(world: &mut World, assets: Assets) -> () {

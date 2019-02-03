@@ -18,6 +18,7 @@ use crate::grid_of_sprites::*;
 use crate::level::{
     Level,
     init_level,
+    kludge_init_grid,
 };
 
 #[derive(Default)]
@@ -226,7 +227,8 @@ impl SimpleState for Main {
         let StateData { world, .. } = data;
 
         let assets = world.read_resource::<Assets>().clone();
-        init_level(world, assets, &self.level);
+        init_level(world, assets.clone(), &self.level);
+        kludge_init_grid(world, assets.clone(), self.kludge_gos_mesh.clone());
     }
 
     fn handle_event(

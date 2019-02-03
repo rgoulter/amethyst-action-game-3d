@@ -30,7 +30,8 @@ pub struct Assets {
     pub grid: MeshHandle,
     pub green_material: Material,
     pub grey_material: Material,
-    pub map_sprite_sheet: SpriteSheetHandle
+    pub map_texture_material: Material,
+    pub map_sprite_sheet: SpriteSheetHandle,
 }
 
 pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
@@ -48,20 +49,22 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
         let tank_gltf = {
             let tank_gltf_progress: &mut ProgressCounter = progress;
             loader.load(
-            "mesh/tank.gltf",
-            GltfSceneFormat,
-            gltf_options,
-            tank_gltf_progress,
-            &gltf_prefab_storage,
-        ) };
+                "mesh/tank.gltf",
+                GltfSceneFormat,
+                gltf_options,
+                tank_gltf_progress,
+                &gltf_prefab_storage,
+            )
+        };
 
         let green_texture = {
             let texture_progress: &mut ProgressCounter = progress;
             loader.load_from_data(
-            [0.3, 1.0, 0.3, 1.0].into(),
-            texture_progress,
-            &tex_storage
-        ) };
+                [0.3, 1.0, 0.3, 1.0].into(),
+                texture_progress,
+                &tex_storage
+            )
+        };
         let green_material = Material {
             albedo: green_texture.clone(),
             ..mat_defaults.0.clone()
@@ -70,10 +73,11 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
         let grey_texture = {
             let texture_progress: &mut ProgressCounter = progress;
             loader.load_from_data(
-            [0.3, 0.3, 0.3, 1.0].into(),
-            texture_progress,
-            &tex_storage
-        ) };
+                [0.3, 0.3, 0.3, 1.0].into(),
+                texture_progress,
+                &tex_storage
+            )
+        };
         let grey_material = Material {
             albedo: grey_texture.clone(),
             ..mat_defaults.0.clone()
@@ -99,6 +103,11 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             )
         };
 
+        let map_texture_material = Material {
+            albedo: map_texture.clone(),
+            ..mat_defaults.0.clone()
+        };
+
         let map_sprite_sheet = {
             let sprite_sheet_progress: &mut ProgressCounter = progress;
             loader.load(
@@ -115,6 +124,7 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             grid,
             green_material,
             grey_material,
+            map_texture_material,
             map_sprite_sheet
         }
     };
