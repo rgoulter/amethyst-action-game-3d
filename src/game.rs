@@ -1,9 +1,11 @@
 use amethyst::{
+    assets::{AssetStorage, Loader},
     assets::{Completion, ProgressCounter},
     ecs::{Entities},
     input::{is_close_requested, is_key_down},
     prelude::*,
     renderer::{
+        ComboMeshCreator, MeshHandle, SpriteSheet,
         VirtualKeyCode,
     },
     ui::{
@@ -12,6 +14,7 @@ use amethyst::{
 };
 
 use crate::graphics::*;
+use crate::grid_of_sprites::*;
 use crate::level::{
     Level,
     init_level,
@@ -24,11 +27,14 @@ pub struct MainMenu {
 #[derive(Default)]
 pub struct Loading {
     progress: ProgressCounter,
+    kludge_progress: Option<ProgressCounter>,
+    kludge_gos_mesh: Option<MeshHandle>,
     level: Level,
 }
 
 pub struct Main {
     level: Level,
+    kludge_gos_mesh: MeshHandle,
 }
 
 fn ui_transform_id_of_ui_event<'a, 'b>(
@@ -128,29 +134,87 @@ impl SimpleState for Loading {
         data: &mut StateData<'_, GameData<'_, '_>>
     ) -> SimpleTrans {
         unload_main_menu(&mut data.world);
-        match self.progress.complete() {
+
+        let kludge_trans = match self.progress.complete() {
             Completion::Failed => {
                 println!("Failed loading assets: {:?}", self.progress.errors());
                 Trans::Quit
             }
             Completion::Complete => {
-                println!("Assets loaded ({}/{}), swapping state",
-                         self.progress.num_finished(),
-                         self.progress.num_assets());
-                if let Some(entity) = data
+                // KLUDGE: still want to load the grid_of_sprites,
+                //         after the other assets.
+                let assets = data.world.read_resource::<Assets>().clone();
+
+                let ssh = assets.map_sprite_sheet;
+                let sprite_sheet_storage =
+                    data
                     .world
-                    .exec(|finder: UiFinder<'_>| finder.find("loading"))
-                {
-                    let _ = data.world.delete_entity(entity);
-                }
-                Trans::Switch(Box::new(Main {
-                    level: self.level.clone(),
-                }))
+                    .read_resource::<AssetStorage<SpriteSheet>>();
+                let sprite_sheet: &SpriteSheet =
+                    sprite_sheet_storage
+                    .get(&ssh)
+                    .expect("spritesheet should be loaded by this point");
+
+                let grid = vec![
+                    vec![1, 1, 1, 1],
+                    vec![1, 2, 1, 1],
+                    vec![1, 1, 3, 3],
+                    vec![3, 3, 4, 3],
+                ];
+
+                let mut kludge_progress = ProgressCounter::default();
+
+                let gos = GridOfSprites {
+                    sprite_sheet: sprite_sheet.clone(),
+                    grid,
+                    num_rows: 4,
+                    num_cols: 4,
+                };
+                let gos_mesh_data = gos.generate::<ComboMeshCreator>(None);
+                let loader = data.world.read_resource::<Loader>();
+                let mesh_storage = data.world.read_resource();
+                let gos_mesh_handle = {
+                    let progress: &mut ProgressCounter = &mut kludge_progress;
+                    loader.load_from_data(gos_mesh_data, progress, &mesh_storage)
+                };
+
+                self.kludge_progress = Some(kludge_progress);
+                self.kludge_gos_mesh = Some(gos_mesh_handle);
+
+                Trans::None
             }
             Completion::Loading => {
                 Trans::None
             }
-        }
+        };
+
+        self.kludge_progress.as_ref().map(|kludge_progress| {
+            match kludge_progress.complete() {
+                Completion::Failed => {
+                    println!("Failed loading kludge assets: {:?}", self.progress.errors());
+                    Trans::Quit
+                }
+                Completion::Complete => {
+                    // KLUDGE: *now* every asset we care about has completed loading.
+                    println!("Assets loaded ({}/{}), swapping state",
+                             self.progress.num_finished(),
+                             self.progress.num_assets());
+                    if let Some(entity) = data
+                        .world
+                        .exec(|finder: UiFinder<'_>| finder.find("loading"))
+                    {
+                        let _ = data.world.delete_entity(entity);
+                    }
+                    Trans::Switch(Box::new(Main {
+                        level: self.level.clone(),
+                        kludge_gos_mesh: self.kludge_gos_mesh.clone().expect("kludge should be loaded")
+                    }))
+                }
+                Completion::Loading => {
+                    Trans::None
+                }
+            }
+        }).unwrap_or(kludge_trans)
     }
 }
 

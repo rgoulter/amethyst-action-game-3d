@@ -14,25 +14,28 @@ use amethyst::{
         specs::prelude::{Entity, Read, ReadExpect, WriteStorage},
     },
     renderer::{
-        SpriteSheet, TextureCoordinates,
+        ComboMeshCreator, MeshData, Normal, Position, PosTex, PosNormTex,
+        PosNormTangTex, Separate, SpriteSheet, Tangent, TexCoord,
+        TextureCoordinates,
     },
 };
 
 use genmesh::{
     generators::{
-        Circle, Cone, Cube, Cylinder, IcoSphere, IndexedPolygon, Plane, SharedVertex, SphereUv,
-        Torus,
+        Circle, Cone, Cube, Cylinder, IcoSphere, IndexedPolygon,
+        Plane, SharedVertex, SphereUv, Torus,
     },
-    EmitTriangles, MapVertex, Triangulate, Vertex, Vertices,
+    EmitTriangles, MapVertex, Quad, Triangulate, Vertex, Vertices,
 };
 
 // Shape generators
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug)]
+// #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct GridOfSprites {
-    sprite_sheet: &SpriteSheet,
-    grid: Vec<Vec<u32>>,
-    num_rows: u32,
-    num_cols: u32,
+    pub sprite_sheet: SpriteSheet,
+    pub grid: Vec<Vec<usize>>,
+    pub num_rows: usize,
+    pub num_cols: usize,
 }
 
 pub type VertexFormat = ([f32; 3], [f32; 3], [f32; 2], [f32; 3]);
@@ -65,19 +68,19 @@ impl GridOfSprites {
     fn generate_internal(&self, scale: Option<(f32, f32, f32)>) -> InternalShape {
         let vertices =
             self.generate_vertices(
-                Plane::subdivide(self.num_cols, self.num_rows)
+                Plane::subdivide(self.num_cols, self.num_rows),
                 scale,
             );
         InternalShape(vertices)
     }
 
     fn tex_coords_for_index(&self, index: usize) -> TextureCoordinates {
-        let row = index / self.width;
-        let col = index % self.width;
+        let row = index / self.num_cols;
+        let col = index % self.num_cols;
         // TODO: default to the first sprite if the (sprite) index is bad.
         let sprite_index = self.grid[row][col];
-        let sprite = self.sprite_sheet.sprites[sprite_index]; // smells
-        sprite.tex_coords
+        let sprite = &self.sprite_sheet.sprites[sprite_index]; // smells
+        sprite.tex_coords.clone()
     }
 
     fn generate_vertices(
@@ -86,7 +89,7 @@ impl GridOfSprites {
         scale: Option<(f32, f32, f32)>
     ) -> Vec<VertexFormat>
     {
-        let vertices: Vec<VertexFormat> = plane
+        plane
             .enumerate()
             .map(|(i, Quad{x: v0, y: v1, z: v2, w: v3})| {
                 let tex_coords = self.tex_coords_for_index(i);
@@ -95,7 +98,7 @@ impl GridOfSprites {
                     (v1, [tex_coords.right, tex_coords.bottom]),
                     (v2, [tex_coords.right, tex_coords.top]),
                     (v3, [tex_coords.left,  tex_coords.top])
-                ).vertex(|(vertex, uv)| {
+                ).map_vertex(|(vertex, uv)| {
                     let pos = scale
                         .map(|(sx, sy, sz)| Vector3::new(
                             vertex.pos.x * sx,

@@ -35,7 +35,11 @@ pub fn init_level(world: &mut World, assets: Assets, level: &Level) -> () {
     init_lighting(world);
 }
 
-fn init_grid(world: &mut World, assets: Assets) -> Entity {
+fn init_grid(world: &mut World, assets: Assets) -> () {
+    init_checkerboard_grid(world, assets.clone());
+}
+
+fn init_checkerboard_grid(world: &mut World, assets: Assets) -> Entity {
     let transform = Transform::default();
 
     let grid_root = world
@@ -53,8 +57,8 @@ fn init_grid(world: &mut World, assets: Assets) -> Entity {
                 let tx = -0.5 + (x as f32 - (grid_num_rows / 2) as f32);
                 let ty = 0.5 + (y as f32 - (grid_num_cols / 2) as f32);
                 // println!("make grid at {}, {} for {}, {}", tx, ty, x, y);
-                transform.set_xyz(tx, 0.0, ty);
-                transform.set_xyz(tx, 0.0, ty);
+                transform.set_xyz(tx, -0.1, ty);
+                transform.set_xyz(tx, -0.0, ty);
                 transform.rotate_local(Vector3::x_axis(), -PI / 2.0);
 
                 let material = assets.grey_material.clone();
