@@ -77,7 +77,8 @@ fn main() -> Result<(), Error> {
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(HotReloadBundle::default())?
         .with_bundle(FPSCounterBundle::default())?
-        .with_bundle(RenderBundle::new(pipe, Some(display_config)))?;
+        .with_bundle(RenderBundle::new(pipe, Some(display_config))
+                                  .with_sprite_sheet_processor())?;
 
     let init_state = MainMenu::default();
 
