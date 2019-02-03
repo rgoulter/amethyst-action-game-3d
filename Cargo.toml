@@ -7,6 +7,7 @@ edition = "2018"
 [dependencies]
 amethyst = "0.10.0"
 amethyst_gltf = "*"
+genmesh = "0.6"
 gltf = "*"
 
 [[bin]]
