@@ -30,13 +30,18 @@ pub struct Level {
 
 pub fn init_level(world: &mut World, assets: Assets, level: &Level) -> () {
     world.register::<MeshData>();
-    // init_grid(world, assets.clone());
+    init_grid(world, assets.clone());
     init_player(world, assets.clone(), level.player_location.clone());
     init_camera(world);
     init_lighting(world);
 }
 
-pub fn kludge_init_grid(world: &mut World, assets: Assets, kludge_mesh: MeshHandle) -> () {
+fn init_grid(world: &mut World, assets: Assets) -> () {
+    init_checkerboard_grid(world, assets.clone());
+    init_map_grid(world, assets.clone());
+}
+
+pub fn init_map_grid(world: &mut World, assets: Assets) -> () {
     let mut transform = Transform::default();
     transform.rotate_local(Vector3::x_axis(), -PI / 2.0);
 
@@ -44,12 +49,8 @@ pub fn kludge_init_grid(world: &mut World, assets: Assets, kludge_mesh: MeshHand
         .create_entity()
         .with(transform)
         .with(assets.map_texture_material.clone())
-        .with(kludge_mesh)
+        .with(assets.grid_of_sprites.clone())
         .build();
-}
-
-fn init_grid(world: &mut World, assets: Assets) -> () {
-    init_checkerboard_grid(world, assets.clone());
 }
 
 fn init_checkerboard_grid(world: &mut World, assets: Assets) -> Entity {
@@ -71,7 +72,6 @@ fn init_checkerboard_grid(world: &mut World, assets: Assets) -> Entity {
                 let ty = 0.5 + (y as f32 - (grid_num_cols / 2) as f32);
                 // println!("make grid at {}, {} for {}, {}", tx, ty, x, y);
                 transform.set_xyz(tx, -0.1, ty);
-                transform.set_xyz(tx, -0.0, ty);
                 transform.rotate_local(Vector3::x_axis(), -PI / 2.0);
 
                 let material = assets.grey_material.clone();

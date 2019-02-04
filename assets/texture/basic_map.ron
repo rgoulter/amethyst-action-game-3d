@@ -1,5 +1,5 @@
 (
-    spritesheet_path: "basic_map_spritesheet.ron",
+    spritesheet_path: "texture/basic_map_spritesheet.ron",
     grid:
         [
             [1, 1, 1, 1],

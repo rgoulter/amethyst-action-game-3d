@@ -15,6 +15,10 @@ use amethyst_gltf::{
     GltfSceneOptions,
 };
 
+use crate::grid_of_sprites::{
+    GridOfSpritesFormat,
+};
+
 // The basic map sprite sheet has incides:
 // 0: road
 // 1: sand
@@ -32,6 +36,7 @@ pub struct Assets {
     pub grey_material: Material,
     pub map_texture_material: Material,
     pub map_sprite_sheet: SpriteSheetHandle,
+    pub grid_of_sprites: MeshHandle,
 }
 
 pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
@@ -113,9 +118,20 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             loader.load(
                 "texture/basic_map_spritesheet.ron",
                 SpriteSheetFormat,
-                map_texture,
+                map_texture.clone(),
                 sprite_sheet_progress,
                 &sprite_sheet_storage,
+            )
+        };
+
+        let grid_of_sprites = {
+            let grid_progress: &mut ProgressCounter = progress;
+            loader.load(
+                "texture/basic_map.ron",
+                GridOfSpritesFormat,
+                map_texture.clone(),
+                grid_progress,
+                &mesh_storage
             )
         };
 
@@ -125,7 +141,8 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             green_material,
             grey_material,
             map_texture_material,
-            map_sprite_sheet
+            map_sprite_sheet,
+            grid_of_sprites,
         }
     };
 
