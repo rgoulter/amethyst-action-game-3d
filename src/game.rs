@@ -1,11 +1,9 @@
 use amethyst::{
-    assets::{AssetStorage, Loader},
     assets::{Completion, ProgressCounter},
     ecs::{Entities},
     input::{is_close_requested, is_key_down},
     prelude::*,
     renderer::{
-        ComboMeshCreator, MeshHandle, SpriteSheet,
         VirtualKeyCode,
     },
     ui::{
@@ -14,7 +12,6 @@ use amethyst::{
 };
 
 use crate::graphics::*;
-use crate::grid_of_sprites::*;
 use crate::level::{
     Level,
     init_level,

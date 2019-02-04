@@ -9,7 +9,6 @@ use amethyst::{
     },
     prelude::*,
     renderer::{
-        MeshHandle,
         AmbientColor, Camera, DirectionalLight, Light, MeshData,
         Projection, Rgba,
     },
@@ -45,7 +44,7 @@ pub fn init_map_grid(world: &mut World, assets: Assets) -> () {
     let mut transform = Transform::default();
     transform.rotate_local(Vector3::x_axis(), -PI / 2.0);
 
-    let grid = world
+    let _grid = world
         .create_entity()
         .with(transform)
         .with(assets.map_texture_material.clone())

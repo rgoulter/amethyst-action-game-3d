@@ -2,20 +2,15 @@
 //
 // grid_of_sprites is for creating a tiled grid of 2D sprites.
 
-use std::marker::PhantomData;
-
 use std::sync::Arc;
 
 use amethyst::{
     assets::{
-        AssetStorage, Error as AssetsError, ErrorKind, Format,
-        FormatValue, Handle, Loader, PrefabData, PrefabError,
-        Progress, ProgressCounter, Reload, Result, ResultExt,
-        SimpleFormat, SingleFile, Source,
+        Error as AssetsError, ErrorKind, Format, FormatValue, Result,
+        ResultExt, SimpleFormat, Source,
     },
     core::{
         nalgebra::{Vector2, Vector3},
-        specs::prelude::{Entity, Read, ReadExpect, WriteStorage},
     },
     renderer::{
         ComboMeshCreator, Mesh, MeshData, Normal, Position, PosTex,
@@ -26,11 +21,8 @@ use amethyst::{
 };
 
 use genmesh::{
-    generators::{
-        Circle, Cone, Cube, Cylinder, IcoSphere, IndexedPolygon,
-        Plane, SharedVertex, SphereUv, Torus,
-    },
-    EmitTriangles, MapVertex, Quad, Triangulate, Vertex, Vertices,
+    generators::Plane,
+    MapVertex, Quad, Triangulate, Vertices,
 };
 
 use ron::de::from_bytes as from_ron_bytes;
