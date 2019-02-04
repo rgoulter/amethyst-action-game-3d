@@ -4,19 +4,24 @@
 
 use std::marker::PhantomData;
 
+use std::sync::Arc;
+
 use amethyst::{
     assets::{
-        AssetStorage, Handle, Loader, PrefabData, PrefabError,
-        Progress, ProgressCounter,
+        AssetStorage, Error as AssetsError, ErrorKind, Format,
+        FormatValue, Handle, Loader, PrefabData, PrefabError,
+        Progress, ProgressCounter, Reload, Result, ResultExt,
+        SimpleFormat, SingleFile, Source,
     },
     core::{
         nalgebra::{Vector2, Vector3},
         specs::prelude::{Entity, Read, ReadExpect, WriteStorage},
     },
     renderer::{
-        ComboMeshCreator, MeshData, Normal, Position, PosTex, PosNormTex,
-        PosNormTangTex, Separate, SpriteSheet, Tangent, TexCoord,
-        TextureCoordinates,
+        ComboMeshCreator, Mesh, MeshData, Normal, Position, PosTex,
+        PosNormTex, PosNormTangTex, Separate, SpriteSheet,
+        SpriteSheetFormat, Tangent, TexCoord, TextureCoordinates,
+        TextureHandle,
     },
 };
 
@@ -27,6 +32,10 @@ use genmesh::{
     },
     EmitTriangles, MapVertex, Quad, Triangulate, Vertex, Vertices,
 };
+
+use ron::de::from_bytes as from_ron_bytes;
+
+use serde::{Deserialize, Serialize,};
 
 // Shape generators
 #[derive(Clone, Debug)]
@@ -204,5 +213,73 @@ impl From<InternalShape> for ComboMeshCreator {
                     .collect(),
             ),
         ))
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+struct SerializedGridOfSprites {
+    /// Width of the sprite sheet
+    pub spritesheet_path: String,
+    /// Description of the sprites
+    pub grid: Vec<Vec<usize>>,
+}
+
+#[derive(Default, Clone, Debug, Serialize, Deserialize)]
+pub struct GridOfSpritesFormat;
+
+impl Format<Mesh> for GridOfSpritesFormat
+{
+    const NAME: &'static str = "GridOfSprites";
+    type Options = TextureHandle;
+
+    fn import(
+        &self,
+        name: String,
+        source: Arc<dyn Source>,
+        texture: Self::Options,
+        _create_reload: bool,
+    ) -> Result<FormatValue<Mesh>> {
+        #[cfg(feature = "profiler")]
+        profile_scope!("import_asset");
+        // NOTE: create_reload is IGNORED.
+        // Thus, no hot reloading.
+        // To reload, would need to impl. Reload for multiple files.
+
+        let bytes = source.load(&name).chain_err(|| ErrorKind::Source)?;
+
+        let load_data: SerializedGridOfSprites = from_ron_bytes(&bytes).map_err(|_| {
+            AssetsError::from_kind(ErrorKind::Format(
+                "Failed to parse Ron file for GridOfSprites",
+            ))
+        })?;
+
+        // smell: just assume grid is the right size
+        let num_rows = load_data.grid.len();
+        let num_cols = load_data.grid[0].len();
+
+        // My understanding: typically Prefab is used for an easy
+        //  way to make an Asset which depends on other Assets being loaded.
+        // But this GridOfSprites wants to refer to the SpriteSheet (and its sprites),
+        //  so would have to wait for the spritesheet's loading to be completed
+        //  before it could even begin to load the MeshData from GridOfSprites.
+        // So, I'm just loading the spritesheet using SpriteSheetFormat.
+        // This doesn't feel idiomatic.
+        let sprite_sheet_bytes = source
+            .load(&load_data.spritesheet_path)
+            .chain_err(|| ErrorKind::Source)?;
+        let sprite_sheet =
+            SimpleFormat::import(&SpriteSheetFormat{}, sprite_sheet_bytes, texture)?;
+
+        let grid_of_sprites = GridOfSprites {
+            sprite_sheet,
+            grid: load_data.grid,
+            num_rows,
+            num_cols,
+        };
+
+        // smell
+        let data = grid_of_sprites.generate::<ComboMeshCreator>(None);
+
+        Ok(FormatValue::data(data))
     }
 }

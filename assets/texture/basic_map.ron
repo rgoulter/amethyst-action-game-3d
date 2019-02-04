@@ -1,0 +1,10 @@
+(
+    spritesheet_path: "basic_map_spritesheet.ron",
+    grid:
+        [
+            [1, 1, 1, 1],
+            [1, 2, 1, 1],
+            [1, 1, 3, 3],
+            [3, 3, 4, 3],
+        ],
+)

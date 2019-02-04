@@ -69,6 +69,8 @@ dependencies = [
  "amethyst_gltf 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "genmesh 0.6.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "gltf 0.11.2 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ron 0.4.1 (registry+https://github.com/rust-lang/crates.io-index)",
+ "serde 1.0.85 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

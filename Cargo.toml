@@ -9,6 +9,8 @@ amethyst = "0.10.0"
 amethyst_gltf = "*"
 genmesh = "0.6"
 gltf = "*"
+ron = "0.4"
+serde = { version = "1", features = ["serde_derive"] }
 
 [[bin]]
 name = "action-game-3d"
