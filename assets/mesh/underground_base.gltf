@@ -1,0 +1,2016 @@
+{
+    "asset" : {
+        "generator" : "Khronos Blender glTF 2.0 I/O",
+        "version" : "2.0"
+    },
+    "scene" : 5,
+    "scenes" : [
+        {
+            "name" : "Lfit.BottomLeft",
+            "nodes" : [
+                0,
+                1,
+                2,
+                4,
+                5,
+                8,
+                11,
+                14,
+                17
+            ]
+        },
+        {
+            "name" : "Lift.BottomRight",
+            "nodes" : [
+                18,
+                19,
+                20,
+                22,
+                23,
+                26,
+                29,
+                32,
+                35
+            ]
+        },
+        {
+            "name" : "Lift.Open",
+            "nodes" : [
+                36,
+                37,
+                38,
+                40,
+                41,
+                44,
+                47,
+                50,
+                53
+            ]
+        },
+        {
+            "name" : "Lift.TopLeft",
+            "nodes" : [
+                54,
+                55,
+                56,
+                58,
+                59,
+                62,
+                65,
+                68,
+                71
+            ]
+        },
+        {
+            "name" : "Lift.TopRight",
+            "nodes" : [
+                72,
+                73,
+                74,
+                76,
+                77,
+                80,
+                83,
+                86,
+                89
+            ]
+        },
+        {
+            "name" : "Scene",
+            "nodes" : [
+                90,
+                91,
+                92,
+                93,
+                95,
+                96,
+                99,
+                102,
+                105,
+                108
+            ]
+        }
+    ],
+    "nodes" : [
+        {
+            "mesh" : 0,
+            "name" : "ElevatorShaft.009",
+            "scale" : [
+                2.262418508529663,
+                1,
+                1
+            ],
+            "translation" : [
+                0,
+                -0.00496363639831543,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Elevator.009",
+            "translation" : [
+                0,
+                -11.801887512207031,
+                0
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "DoorBorder.009"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.009",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "children" : [
+                3
+            ],
+            "name" : "Door.009"
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.009"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopRight.009",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopRight.009"
+        },
+        {
+            "children" : [
+                6,
+                7
+            ],
+            "name" : "Door.TopRight.009",
+            "translation" : [
+                4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomRight.009",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomRight.009"
+        },
+        {
+            "children" : [
+                9,
+                10
+            ],
+            "name" : "Door.BottomRight.009",
+            "translation" : [
+                4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopLeft.009",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopLeft.009"
+        },
+        {
+            "children" : [
+                12,
+                13
+            ],
+            "name" : "Door.TopLeft.009",
+            "translation" : [
+                -4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomLeft.009",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomLeft.009"
+        },
+        {
+            "children" : [
+                15,
+                16
+            ],
+            "name" : "Door.BottomLeft.009",
+            "translation" : [
+                -4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "ElevatorShaft.004",
+            "scale" : [
+                2.262418508529663,
+                1,
+                1
+            ],
+            "translation" : [
+                0,
+                -0.00496363639831543,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Elevator.004",
+            "translation" : [
+                0,
+                -11.801887512207031,
+                0
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "DoorBorder.004"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.004",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "children" : [
+                21
+            ],
+            "name" : "Door.004"
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.004"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopRight.004",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopRight.004"
+        },
+        {
+            "children" : [
+                24,
+                25
+            ],
+            "name" : "Door.TopRight.004",
+            "translation" : [
+                4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomRight.004",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomRight.004"
+        },
+        {
+            "children" : [
+                27,
+                28
+            ],
+            "name" : "Door.BottomRight.004",
+            "translation" : [
+                4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopLeft.004",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopLeft.004"
+        },
+        {
+            "children" : [
+                30,
+                31
+            ],
+            "name" : "Door.TopLeft.004",
+            "translation" : [
+                -4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomLeft.004",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomLeft.004"
+        },
+        {
+            "children" : [
+                33,
+                34
+            ],
+            "name" : "Door.BottomLeft.004",
+            "translation" : [
+                -4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "ElevatorShaft.010",
+            "scale" : [
+                2.262418508529663,
+                1,
+                1
+            ],
+            "translation" : [
+                0,
+                -0.00496363639831543,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Elevator.010",
+            "translation" : [
+                0,
+                -11.801887512207031,
+                0
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "DoorBorder.010"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.010",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "children" : [
+                39
+            ],
+            "name" : "Door.010"
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.010"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopRight.010",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopRight.010"
+        },
+        {
+            "children" : [
+                42,
+                43
+            ],
+            "name" : "Door.TopRight.010",
+            "translation" : [
+                4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomRight.010",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomRight.010"
+        },
+        {
+            "children" : [
+                45,
+                46
+            ],
+            "name" : "Door.BottomRight.010",
+            "translation" : [
+                4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopLeft.010",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopLeft.010"
+        },
+        {
+            "children" : [
+                48,
+                49
+            ],
+            "name" : "Door.TopLeft.010",
+            "translation" : [
+                -4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomLeft.010",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomLeft.010"
+        },
+        {
+            "children" : [
+                51,
+                52
+            ],
+            "name" : "Door.BottomLeft.010",
+            "translation" : [
+                -4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "ElevatorShaft.003",
+            "scale" : [
+                2.262418508529663,
+                1,
+                1
+            ],
+            "translation" : [
+                0,
+                -0.00496363639831543,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Elevator.003",
+            "translation" : [
+                0,
+                -11.801887512207031,
+                0
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "DoorBorder.003"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.003",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "children" : [
+                57
+            ],
+            "name" : "Door.003"
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.003"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopRight.003",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopRight.003"
+        },
+        {
+            "children" : [
+                60,
+                61
+            ],
+            "name" : "Door.TopRight.003",
+            "translation" : [
+                4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomRight.003",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomRight.003"
+        },
+        {
+            "children" : [
+                63,
+                64
+            ],
+            "name" : "Door.BottomRight.003",
+            "translation" : [
+                4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopLeft.003",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopLeft.003"
+        },
+        {
+            "children" : [
+                66,
+                67
+            ],
+            "name" : "Door.TopLeft.003",
+            "translation" : [
+                -4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomLeft.003",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomLeft.003"
+        },
+        {
+            "children" : [
+                69,
+                70
+            ],
+            "name" : "Door.BottomLeft.003",
+            "translation" : [
+                -4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "ElevatorShaft.002",
+            "scale" : [
+                2.262418508529663,
+                1,
+                1
+            ],
+            "translation" : [
+                0,
+                -0.00496363639831543,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Elevator.002",
+            "translation" : [
+                0,
+                -10.08594036102295,
+                0
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "DoorBorder.002"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.002",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "children" : [
+                75
+            ],
+            "name" : "Door.002"
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.002"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopRight.002",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopRight.002"
+        },
+        {
+            "children" : [
+                78,
+                79
+            ],
+            "name" : "Door.TopRight.002",
+            "translation" : [
+                4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomRight.002",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomRight.002"
+        },
+        {
+            "children" : [
+                81,
+                82
+            ],
+            "name" : "Door.BottomRight.002",
+            "translation" : [
+                4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopLeft.002",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopLeft.002"
+        },
+        {
+            "children" : [
+                84,
+                85
+            ],
+            "name" : "Door.TopLeft.002",
+            "translation" : [
+                -4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomLeft.002",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomLeft.002"
+        },
+        {
+            "children" : [
+                87,
+                88
+            ],
+            "name" : "Door.BottomLeft.002",
+            "translation" : [
+                -4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 0,
+            "name" : "ElevatorShaft",
+            "scale" : [
+                2.262418508529663,
+                1,
+                1
+            ],
+            "translation" : [
+                0,
+                -0.00496363639831543,
+                0
+            ]
+        },
+        {
+            "mesh" : 1,
+            "name" : "Elevator",
+            "translation" : [
+                0,
+                -11.801887512207031,
+                0
+            ]
+        },
+        {
+            "mesh" : 2,
+            "name" : "DoorBorder"
+        },
+        {
+            "name" : "ReferenceImage",
+            "rotation" : [
+                0.7071068286895752,
+                0,
+                0,
+                0.7071068286895752
+            ],
+            "scale" : [
+                39.92646789550781,
+                39.92646789550781,
+                39.92646789550781
+            ],
+            "translation" : [
+                -0.2577904760837555,
+                -10.229999542236328,
+                -9.073542594909668
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "children" : [
+                94
+            ],
+            "name" : "Door"
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight"
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopRight",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopRight"
+        },
+        {
+            "children" : [
+                97,
+                98
+            ],
+            "name" : "Door.TopRight",
+            "translation" : [
+                4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomRight",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomRight"
+        },
+        {
+            "children" : [
+                100,
+                101
+            ],
+            "name" : "Door.BottomRight",
+            "translation" : [
+                4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.TopLeft",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.TopLeft"
+        },
+        {
+            "children" : [
+                103,
+                104
+            ],
+            "name" : "Door.TopLeft",
+            "translation" : [
+                -4.199999809265137,
+                -7.099999904632568,
+                0
+            ]
+        },
+        {
+            "mesh" : 3,
+            "name" : "DoorLeft.BottomLeft",
+            "rotation" : [
+                0,
+                1,
+                0,
+                -4.371138828673793e-08
+            ]
+        },
+        {
+            "mesh" : 4,
+            "name" : "DoorRight.BottomLeft"
+        },
+        {
+            "children" : [
+                106,
+                107
+            ],
+            "name" : "Door.BottomLeft",
+            "translation" : [
+                -4.199999809265137,
+                -11.699999809265137,
+                0
+            ]
+        }
+    ],
+    "animations" : [
+        {
+            "channels" : [
+                {
+                    "sampler" : 0,
+                    "target" : {
+                        "node" : 73,
+                        "path" : "translation"
+                    }
+                }
+            ],
+            "name" : "Elevator.002Action",
+            "samplers" : [
+                {
+                    "input" : 48,
+                    "interpolation" : "CUBICSPLINE",
+                    "output" : 49
+                }
+            ]
+        },
+        {
+            "channels" : [
+                {
+                    "sampler" : 0,
+                    "target" : {
+                        "node" : 80,
+                        "path" : "translation"
+                    }
+                }
+            ],
+            "name" : "Door.TopRight.002Action",
+            "samplers" : [
+                {
+                    "input" : 50,
+                    "interpolation" : "CUBICSPLINE",
+                    "output" : 51
+                }
+            ]
+        }
+    ],
+    "materials" : [
+        {
+            "name" : "UndergroundMud",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.08984119445085526,
+                    0.022480476647615433,
+                    0.003408679272979498,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 1
+            }
+        },
+        {
+            "name" : "ElevatorShaft",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.0032832666765898466,
+                    0.0006303141708485782,
+                    0.05359095335006714,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 1
+            }
+        },
+        {
+            "name" : "ElevatorBar",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.1374063789844513,
+                    0.1374063789844513,
+                    0.1374063789844513,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 1
+            }
+        },
+        {
+            "name" : "DoorBorderYellow",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    1,
+                    0.48019859194755554,
+                    0,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 1
+            }
+        },
+        {
+            "name" : "DoorBorderBlack",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0,
+                    0,
+                    0,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 1
+            }
+        },
+        {
+            "name" : "DoorOuter",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.04518420994281769,
+                    0.04518420994281769,
+                    0.04518420994281769,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 1
+            }
+        },
+        {
+            "name" : "TeamColor",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.12038788199424744,
+                    0.0026623711455613375,
+                    0.1412592977285385,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.5
+            }
+        },
+        {
+            "name" : "DoorBolt",
+            "pbrMetallicRoughness" : {
+                "baseColorFactor" : [
+                    0.012982013635337353,
+                    0.012982013635337353,
+                    0.012982013635337353,
+                    1
+                ],
+                "metallicFactor" : 0,
+                "roughnessFactor" : 0.7906336188316345
+            }
+        }
+    ],
+    "meshes" : [
+        {
+            "name" : "ElevatorShaftData",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 0,
+                        "NORMAL" : 1,
+                        "TEXCOORD_0" : 2
+                    },
+                    "indices" : 3,
+                    "material" : 0
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 4,
+                        "NORMAL" : 5,
+                        "TEXCOORD_0" : 6
+                    },
+                    "indices" : 7,
+                    "material" : 1
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 8,
+                        "NORMAL" : 9,
+                        "TEXCOORD_0" : 10
+                    },
+                    "indices" : 11,
+                    "material" : 2
+                }
+            ]
+        },
+        {
+            "name" : "ElevatorData",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 12,
+                        "NORMAL" : 13,
+                        "TEXCOORD_0" : 14
+                    },
+                    "indices" : 15,
+                    "material" : 2
+                }
+            ]
+        },
+        {
+            "name" : "DoorBorderData",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 16,
+                        "NORMAL" : 17,
+                        "TEXCOORD_0" : 18
+                    },
+                    "indices" : 19,
+                    "material" : 3
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 20,
+                        "NORMAL" : 21,
+                        "TEXCOORD_0" : 22
+                    },
+                    "indices" : 23,
+                    "material" : 4
+                }
+            ]
+        },
+        {
+            "name" : "DoorLeftData",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 24,
+                        "NORMAL" : 25,
+                        "TEXCOORD_0" : 26
+                    },
+                    "indices" : 27,
+                    "material" : 5
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 28,
+                        "NORMAL" : 29,
+                        "TEXCOORD_0" : 30
+                    },
+                    "indices" : 31,
+                    "material" : 6
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 32,
+                        "NORMAL" : 33,
+                        "TEXCOORD_0" : 34
+                    },
+                    "indices" : 35,
+                    "material" : 7
+                }
+            ]
+        },
+        {
+            "name" : "DoorRightData",
+            "primitives" : [
+                {
+                    "attributes" : {
+                        "POSITION" : 36,
+                        "NORMAL" : 37,
+                        "TEXCOORD_0" : 38
+                    },
+                    "indices" : 39,
+                    "material" : 6
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 40,
+                        "NORMAL" : 41,
+                        "TEXCOORD_0" : 42
+                    },
+                    "indices" : 43,
+                    "material" : 5
+                },
+                {
+                    "attributes" : {
+                        "POSITION" : 44,
+                        "NORMAL" : 45,
+                        "TEXCOORD_0" : 46
+                    },
+                    "indices" : 47,
+                    "material" : 7
+                }
+            ]
+        }
+    ],
+    "accessors" : [
+        {
+            "bufferView" : 0,
+            "componentType" : 5126,
+            "count" : 36,
+            "max" : [
+                7.420048713684082,
+                0.00496363639831543,
+                2.0999999046325684
+            ],
+            "min" : [
+                -7.420048713684082,
+                -17.995037078857422,
+                2.0999999046325684
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 1,
+            "componentType" : 5126,
+            "count" : 36,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 2,
+            "componentType" : 5126,
+            "count" : 36,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 3,
+            "componentType" : 5123,
+            "count" : 84,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 4,
+            "componentType" : 5126,
+            "count" : 70,
+            "max" : [
+                0.9282101392745972,
+                0.00496363639831543,
+                2.0999999046325684
+            ],
+            "min" : [
+                -0.9282101392745972,
+                -12.995036125183105,
+                -2.1070001125335693
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 5,
+            "componentType" : 5126,
+            "count" : 70,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 6,
+            "componentType" : 5126,
+            "count" : 70,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 7,
+            "componentType" : 5123,
+            "count" : 108,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 8,
+            "componentType" : 5126,
+            "count" : 64,
+            "max" : [
+                2.7902400493621826,
+                -4.2137861251831055,
+                2.0999999046325684
+            ],
+            "min" : [
+                -2.7902400493621826,
+                -11.77096939086914,
+                -2.1070001125335693
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 9,
+            "componentType" : 5126,
+            "count" : 64,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 10,
+            "componentType" : 5126,
+            "count" : 64,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 11,
+            "componentType" : 5123,
+            "count" : 96,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 12,
+            "componentType" : 5126,
+            "count" : 810,
+            "max" : [
+                2.1000001430511475,
+                0,
+                2.1000001430511475
+            ],
+            "min" : [
+                -2.1000001430511475,
+                -17.0341796875,
+                -2.1000001430511475
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 13,
+            "componentType" : 5126,
+            "count" : 810,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 14,
+            "componentType" : 5126,
+            "count" : 810,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 15,
+            "componentType" : 5123,
+            "count" : 1584,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 16,
+            "componentType" : 5126,
+            "count" : 240,
+            "max" : [
+                3,
+                0.19999998807907104,
+                3
+            ],
+            "min" : [
+                -3,
+                0,
+                -3
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 17,
+            "componentType" : 5126,
+            "count" : 240,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 18,
+            "componentType" : 5126,
+            "count" : 240,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 19,
+            "componentType" : 5123,
+            "count" : 432,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 20,
+            "componentType" : 5126,
+            "count" : 228,
+            "max" : [
+                3,
+                0.19999998807907104,
+                3
+            ],
+            "min" : [
+                -3,
+                0,
+                -3
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 21,
+            "componentType" : 5126,
+            "count" : 228,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 22,
+            "componentType" : 5126,
+            "count" : 228,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 23,
+            "componentType" : 5123,
+            "count" : 384,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 24,
+            "componentType" : 5126,
+            "count" : 212,
+            "max" : [
+                2.0999999046325684,
+                0.19999998807907104,
+                2.0999999046325684
+            ],
+            "min" : [
+                -0.5,
+                0,
+                -2.0999999046325684
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 25,
+            "componentType" : 5126,
+            "count" : 212,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 26,
+            "componentType" : 5126,
+            "count" : 212,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 27,
+            "componentType" : 5123,
+            "count" : 342,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 28,
+            "componentType" : 5126,
+            "count" : 24,
+            "max" : [
+                1.516369104385376,
+                0.09999998658895493,
+                1.3999998569488525
+            ],
+            "min" : [
+                0,
+                0,
+                -1.3999998569488525
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 29,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 30,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 31,
+            "componentType" : 5123,
+            "count" : 48,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 32,
+            "componentType" : 5126,
+            "count" : 7936,
+            "max" : [
+                1.9271750450134277,
+                0.23722586035728455,
+                1.888135313987732
+            ],
+            "min" : [
+                0.20752578973770142,
+                0.20049673318862915,
+                -1.8881351947784424
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 33,
+            "componentType" : 5126,
+            "count" : 7936,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 34,
+            "componentType" : 5126,
+            "count" : 7936,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 35,
+            "componentType" : 5123,
+            "count" : 11520,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 36,
+            "componentType" : 5126,
+            "count" : 24,
+            "max" : [
+                1.516369104385376,
+                0.09999998658895493,
+                1.3999998569488525
+            ],
+            "min" : [
+                0,
+                0,
+                -1.3999998569488525
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 37,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 38,
+            "componentType" : 5126,
+            "count" : 24,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 39,
+            "componentType" : 5123,
+            "count" : 48,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 40,
+            "componentType" : 5126,
+            "count" : 140,
+            "max" : [
+                2.0999999046325684,
+                0.19999998807907104,
+                2.0999999046325684
+            ],
+            "min" : [
+                0,
+                0,
+                -2.0999999046325684
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 41,
+            "componentType" : 5126,
+            "count" : 140,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 42,
+            "componentType" : 5126,
+            "count" : 140,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 43,
+            "componentType" : 5123,
+            "count" : 228,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 44,
+            "componentType" : 5126,
+            "count" : 3968,
+            "max" : [
+                1.9271750450134277,
+                0.23722586035728455,
+                1.8757282495498657
+            ],
+            "min" : [
+                0.21657028794288635,
+                0.20049673318862915,
+                -1.8881351947784424
+            ],
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 45,
+            "componentType" : 5126,
+            "count" : 3968,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 46,
+            "componentType" : 5126,
+            "count" : 3968,
+            "type" : "VEC2"
+        },
+        {
+            "bufferView" : 47,
+            "componentType" : 5123,
+            "count" : 5760,
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 48,
+            "componentType" : 5126,
+            "count" : 4,
+            "max" : [
+                5.458333333333333
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 49,
+            "componentType" : 5126,
+            "count" : 12,
+            "type" : "VEC3"
+        },
+        {
+            "bufferView" : 50,
+            "componentType" : 5126,
+            "count" : 4,
+            "max" : [
+                5.458333333333333
+            ],
+            "min" : [
+                0
+            ],
+            "type" : "SCALAR"
+        },
+        {
+            "bufferView" : 51,
+            "componentType" : 5126,
+            "count" : 12,
+            "type" : "VEC3"
+        }
+    ],
+    "bufferViews" : [
+        {
+            "buffer" : 0,
+            "byteLength" : 432,
+            "byteOffset" : 0
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 432,
+            "byteOffset" : 432
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 864
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 168,
+            "byteOffset" : 1152
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 840,
+            "byteOffset" : 1320
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 840,
+            "byteOffset" : 2160
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 560,
+            "byteOffset" : 3000
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 216,
+            "byteOffset" : 3560
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 768,
+            "byteOffset" : 3776
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 768,
+            "byteOffset" : 4544
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 512,
+            "byteOffset" : 5312
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 192,
+            "byteOffset" : 5824
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 9720,
+            "byteOffset" : 6016
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 9720,
+            "byteOffset" : 15736
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 6480,
+            "byteOffset" : 25456
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 3168,
+            "byteOffset" : 31936
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2880,
+            "byteOffset" : 35104
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2880,
+            "byteOffset" : 37984
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1920,
+            "byteOffset" : 40864
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 864,
+            "byteOffset" : 42784
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2736,
+            "byteOffset" : 43648
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2736,
+            "byteOffset" : 46384
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1824,
+            "byteOffset" : 49120
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 768,
+            "byteOffset" : 50944
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2544,
+            "byteOffset" : 51712
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 2544,
+            "byteOffset" : 54256
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1696,
+            "byteOffset" : 56800
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 684,
+            "byteOffset" : 58496
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 59180
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 59468
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 192,
+            "byteOffset" : 59756
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 96,
+            "byteOffset" : 59948
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 95232,
+            "byteOffset" : 60044
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 95232,
+            "byteOffset" : 155276
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 63488,
+            "byteOffset" : 250508
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 23040,
+            "byteOffset" : 313996
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 337036
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 288,
+            "byteOffset" : 337324
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 192,
+            "byteOffset" : 337612
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 96,
+            "byteOffset" : 337804
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1680,
+            "byteOffset" : 337900
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1680,
+            "byteOffset" : 339580
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 1120,
+            "byteOffset" : 341260
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 456,
+            "byteOffset" : 342380
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 47616,
+            "byteOffset" : 342836
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 47616,
+            "byteOffset" : 390452
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 31744,
+            "byteOffset" : 438068
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 11520,
+            "byteOffset" : 469812
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 16,
+            "byteOffset" : 481332
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 144,
+            "byteOffset" : 481348
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 16,
+            "byteOffset" : 481492
+        },
+        {
+            "buffer" : 0,
+            "byteLength" : 144,
+            "byteOffset" : 481508
+        }
+    ],
+    "buffers" : [
+        {
+            "byteLength" : 481652,
+            "uri" : "underground_base.bin"
+        }
+    ]
+}

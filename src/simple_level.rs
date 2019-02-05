@@ -1,8 +1,9 @@
 use amethyst;
 
 use amethyst::{
+    animation::{AnimationBundle,},
     assets::{HotReloadBundle,},
-    core::transform::{TransformBundle},
+    core::transform::{Transform, TransformBundle},
     input::{InputBundle},
     prelude::*,
     renderer::{
@@ -33,6 +34,7 @@ mod level;
 mod player;
 mod replace_material;
 mod systems;
+mod underground_base;
 mod utils;
 
 fn main() -> Result<(), Error> {
@@ -71,12 +73,19 @@ fn main() -> Result<(), Error> {
             InputBundle::<String, String>::new()
                 .with_bindings_from_file(input_config_path)?,
         )?
+        .with(GltfSceneLoaderSystem::default(), "gltf_loader", &[])
+        .with_bundle(
+            AnimationBundle::<usize, Transform>::new("animation_control", "sampler_interpolation")
+                .with_dep(&["gltf_loader"]),
+        )?
         .with(MovementSystem, "movement", &[])
         .with::<UISystem>(UISystem::default(), "game_ui_system", &[])
         .with(DebugSystem::default(), "game_debug_system", &[])
         .with(ReplaceMaterialSystem::default(), "replace_material_system", &[])
-        .with(GltfSceneLoaderSystem::default(), "gltf_loader", &[])
-        .with_bundle(TransformBundle::new().with_dep(&[]))?
+        .with_bundle(TransformBundle::new().with_dep(&[
+            "animation_control",
+            "sampler_interpolation",
+        ]))?
         .with_bundle(UiBundle::<String, String>::new())?
         .with_bundle(HotReloadBundle::default())?
         .with_bundle(FPSCounterBundle::default())?

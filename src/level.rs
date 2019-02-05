@@ -21,6 +21,10 @@ use crate::graphics::{
 use crate::player::{
     init_player,
 };
+use crate::underground_base::{
+    UndergroundBase,
+    init_underground_base,
+};
 
 #[derive(Clone, Default)]
 pub struct Level {
@@ -29,14 +33,16 @@ pub struct Level {
 
 pub fn init_level(world: &mut World, assets: Assets, level: &Level) -> () {
     world.register::<MeshData>();
+    world.register::<UndergroundBase>();
     init_grid(world, assets.clone());
     init_player(world, assets.clone(), level.player_location.clone());
+    init_underground_base(world, assets.clone(), level.player_location.clone());
     init_camera(world);
     init_lighting(world);
 }
 
 fn init_grid(world: &mut World, assets: Assets) -> () {
-    init_checkerboard_grid(world, assets.clone());
+    // init_checkerboard_grid(world, assets.clone());
     init_map_grid(world, assets.clone());
 }
 
