@@ -1,8 +1,9 @@
 use amethyst;
 
 use amethyst::{
+    animation::AnimationBundle,
     assets::{HotReloadBundle,},
-    core::transform::{TransformBundle},
+    core::transform::{Transform, TransformBundle},
     input::{InputBundle},
     prelude::*,
     renderer::{
@@ -78,6 +79,7 @@ fn main() -> Result<(), Error> {
                 .with_dep(&["gltf_loader"]),
         )?
         .with(MovementSystem, "movement", &[])
+        .with(UndergroundBaseControlSystem, "underground_base_control", &[])
         .with::<UISystem>(UISystem::default(), "game_ui_system", &[])
         .with(ReplaceMaterialSystem::default(), "replace_material_system", &[])
         .with_bundle(TransformBundle::new().with_dep(&[

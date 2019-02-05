@@ -9,7 +9,11 @@ use amethyst::{
     ecs::prelude::{
         Read, ReadStorage, System,
     },
-    renderer::{Material, MeshData,},
+    input::InputHandler,
+    renderer::{
+        Material,
+        MeshData,
+    },
 };
 
 use crate::player::Player;
@@ -19,6 +23,7 @@ pub struct DebugSystem;
 
 impl<'a> System<'a> for DebugSystem {
     type SystemData = (
+        Read<'a, InputHandler<String, String>>,
         Read<'a, Time>,
         ReadStorage<'a, Material>,
         ReadStorage<'a, MeshData>,
@@ -28,14 +33,22 @@ impl<'a> System<'a> for DebugSystem {
     );
 
     fn run(&mut self, data: Self::SystemData) {
-        let (_time, _materials, _meshes, _named, _parents, _players) =
+        let (
+            _input,
+            _time,
+            _materials,
+            _meshes,
+            _named,
+            _parents,
+            _players
+        ) =
             data;
 
         // It's not that this is useless;
         //  but it's far too verbose.
         // Need to check for System Events or something
         //  to filter all the noise.
-        
+
         // println!("==== Debug System ====");
         // println!("query: named AND material AND mesh_data");
         // for (name, _mat, _mesh) in (&named, &materials, &meshes).join() {

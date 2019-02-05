@@ -79,6 +79,7 @@ fn main() -> Result<(), Error> {
                 .with_dep(&["gltf_loader"]),
         )?
         .with(MovementSystem, "movement", &[])
+        .with(UndergroundBaseControlSystem, "underground_base_control", &[])
         .with::<UISystem>(UISystem::default(), "game_ui_system", &[])
         .with(DebugSystem::default(), "game_debug_system", &[])
         .with(ReplaceMaterialSystem::default(), "replace_material_system", &[])
