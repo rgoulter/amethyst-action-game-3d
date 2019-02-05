@@ -31,6 +31,7 @@ mod graphics;
 mod grid_of_sprites;
 mod level;
 mod player;
+mod replace_material;
 mod systems;
 mod utils;
 
@@ -72,6 +73,7 @@ fn main() -> Result<(), Error> {
         )?
         .with(MovementSystem, "movement", &[])
         .with::<UISystem>(UISystem::default(), "game_ui_system", &[])
+        .with(ReplaceMaterialSystem::default(), "replace_material_system", &[])
         .with(GltfSceneLoaderSystem::default(), "gltf_loader", &[])
         .with_bundle(TransformBundle::new().with_dep(&[]))?
         .with_bundle(UiBundle::<String, String>::new())?

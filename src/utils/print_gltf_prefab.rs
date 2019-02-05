@@ -15,6 +15,9 @@ pub fn print_info_about_gltf_prefab(gltf_prefab: &mut GltfPrefab) -> () {
     if let Some(_transform) = &gltf_prefab.transform {
         println!("- has transform");
     }
+    if let Some(_material) = &gltf_prefab.material {
+        println!("- has material");
+    }
 }
 
 pub fn print_gltf_info(

@@ -6,7 +6,7 @@ use amethyst::{
     renderer::{
         ComboMeshCreator, Material, MaterialDefaults, MeshHandle,
         PngFormat, Shape, SpriteSheet, SpriteSheetFormat,
-        SpriteSheetHandle, TextureMetadata,
+        SpriteSheetHandle, TextureHandle, TextureMetadata,
     },
 };
 use amethyst_gltf::{
@@ -31,6 +31,7 @@ use crate::grid_of_sprites::{
 #[derive(Clone)]
 pub struct Assets {
     pub tank_gltf: Handle<GltfSceneAsset>,
+    pub tank_blue_texture: TextureHandle,
     pub grid: MeshHandle,
     pub green_material: Material,
     pub grey_material: Material,
@@ -59,6 +60,17 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
                 gltf_options,
                 tank_gltf_progress,
                 &gltf_prefab_storage,
+            )
+        };
+
+        let tank_blue_texture = {
+            let tex_progress: &mut ProgressCounter = progress;
+            loader.load(
+                "mesh/tank_texture_blue.png",
+                PngFormat,
+                TextureMetadata::srgb_scale(),
+                tex_progress,
+                &tex_storage,
             )
         };
 
@@ -137,6 +149,7 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
 
         Assets {
             tank_gltf,
+            tank_blue_texture,
             grid,
             green_material,
             grey_material,

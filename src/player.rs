@@ -1,6 +1,10 @@
+use std::borrow::Cow;
+use std::collections::HashSet;
+
 use amethyst::{
     core::{
         transform::{Transform},
+        Named,
         Parent,
     },
     ecs::{NullStorage},
@@ -12,6 +16,7 @@ use amethyst::{
 use std::f32::consts::PI;
 
 use crate::graphics::Assets;
+use crate::replace_material::ReplaceMaterial;
 use crate::utils::print_gltf_info;
 
 #[derive(Default)]
@@ -21,7 +26,11 @@ impl Component for Player {
     type Storage = NullStorage<Self>;
 }
 
-pub fn init_player(world: &mut World, assets: Assets, init_location: Transform) -> Entity {
+pub fn init_player(
+    world: &mut World,
+    assets: Assets,
+    init_location: Transform
+) -> Entity {
     let player = world
         .create_entity()
         .with(init_location)
@@ -29,10 +38,21 @@ pub fn init_player(world: &mut World, assets: Assets, init_location: Transform) 
         .build();
 
     let mut tank_transform = Transform::default();
-    tank_transform.yaw_local(PI); // <-- this should turn the model around
+    tank_transform.yaw_local(PI); // The GLTF model needs to be turned around.
+    let mut tank_replace_material_targets: HashSet<Cow<'static, str>> =
+        HashSet::new();
+    tank_replace_material_targets.insert(Cow::Borrowed("TankBase"));
+    tank_replace_material_targets.insert(Cow::Borrowed("Turret"));
+    tank_replace_material_targets.insert(Cow::Borrowed("TurretGun"));
+    let replace_material = ReplaceMaterial {
+        targets: tank_replace_material_targets,
+        replacement: Some(assets.tank_blue_texture.clone()),
+    };
     let _model_rotation = world
         .create_entity()
         .with(Parent { entity: player })
+        .with(Named { name: Cow::Borrowed("player_tank_replace") })
+        .with(replace_material)
         .with(tank_transform)
         .build();
 
