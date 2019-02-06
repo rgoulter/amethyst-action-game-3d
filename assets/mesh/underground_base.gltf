@@ -6,7 +6,7 @@
     "scene" : 5,
     "scenes" : [
         {
-            "name" : "Lfit.BottomLeft",
+            "name" : "Lift.BottomLeft",
             "nodes" : [
                 0,
                 1,
@@ -94,7 +94,7 @@
     "nodes" : [
         {
             "mesh" : 0,
-            "name" : "ElevatorShaft.009",
+            "name" : "ElevatorShaft.001",
             "scale" : [
                 2.262418508529663,
                 1,
@@ -108,20 +108,20 @@
         },
         {
             "mesh" : 1,
-            "name" : "Elevator.009",
+            "name" : "Elevator.001",
             "translation" : [
                 0,
-                -11.801887512207031,
+                -6.101887226104736,
                 0
             ]
         },
         {
             "mesh" : 2,
-            "name" : "DoorBorder.009"
+            "name" : "DoorBorder.001"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.009",
+            "name" : "DoorLeft.001",
             "rotation" : [
                 0,
                 1,
@@ -133,15 +133,15 @@
             "children" : [
                 3
             ],
-            "name" : "Door.009"
+            "name" : "Door.001"
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.009"
+            "name" : "DoorRight.001"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopRight.009",
+            "name" : "DoorLeft.TopRight.001",
             "rotation" : [
                 0,
                 1,
@@ -151,23 +151,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopRight.009"
+            "name" : "DoorRight.TopRight.001"
         },
         {
             "children" : [
                 6,
                 7
             ],
-            "name" : "Door.TopRight.009",
+            "name" : "Door.TopRight.001",
             "translation" : [
-                4.199999809265137,
-                -7.099999904632568,
+                2.0999999046325684,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomRight.009",
+            "name" : "DoorLeft.BottomRight.001",
             "rotation" : [
                 0,
                 1,
@@ -177,23 +177,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomRight.009"
+            "name" : "DoorRight.BottomRight.001"
         },
         {
             "children" : [
                 9,
                 10
             ],
-            "name" : "Door.BottomRight.009",
+            "name" : "Door.BottomRight.001",
             "translation" : [
-                4.199999809265137,
-                -11.699999809265137,
+                2.0999999046325684,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopLeft.009",
+            "name" : "DoorLeft.TopLeft.001",
             "rotation" : [
                 0,
                 1,
@@ -203,23 +203,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopLeft.009"
+            "name" : "DoorRight.TopLeft.001"
         },
         {
             "children" : [
                 12,
                 13
             ],
-            "name" : "Door.TopLeft.009",
+            "name" : "Door.TopLeft.001",
             "translation" : [
-                -4.199999809265137,
-                -7.099999904632568,
+                -2.119999885559082,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomLeft.009",
+            "name" : "DoorLeft.BottomLeft.001",
             "rotation" : [
                 0,
                 1,
@@ -229,23 +229,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomLeft.009"
+            "name" : "DoorRight.BottomLeft.001"
         },
         {
             "children" : [
                 15,
                 16
             ],
-            "name" : "Door.BottomLeft.009",
+            "name" : "Door.BottomLeft.001",
             "translation" : [
-                -4.199999809265137,
-                -11.699999809265137,
+                -2.119999885559082,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 0,
-            "name" : "ElevatorShaft.004",
+            "name" : "ElevatorShaft.005",
             "scale" : [
                 2.262418508529663,
                 1,
@@ -259,20 +259,20 @@
         },
         {
             "mesh" : 1,
-            "name" : "Elevator.004",
+            "name" : "Elevator.005",
             "translation" : [
                 0,
-                -11.801887512207031,
+                -6.101887226104736,
                 0
             ]
         },
         {
             "mesh" : 2,
-            "name" : "DoorBorder.004"
+            "name" : "DoorBorder.005"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.004",
+            "name" : "DoorLeft.005",
             "rotation" : [
                 0,
                 1,
@@ -284,15 +284,15 @@
             "children" : [
                 21
             ],
-            "name" : "Door.004"
+            "name" : "Door.005"
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.004"
+            "name" : "DoorRight.005"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopRight.004",
+            "name" : "DoorLeft.TopRight.005",
             "rotation" : [
                 0,
                 1,
@@ -302,23 +302,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopRight.004"
+            "name" : "DoorRight.TopRight.005"
         },
         {
             "children" : [
                 24,
                 25
             ],
-            "name" : "Door.TopRight.004",
+            "name" : "Door.TopRight.005",
             "translation" : [
-                4.199999809265137,
-                -7.099999904632568,
+                2.0999999046325684,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomRight.004",
+            "name" : "DoorLeft.BottomRight.005",
             "rotation" : [
                 0,
                 1,
@@ -328,23 +328,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomRight.004"
+            "name" : "DoorRight.BottomRight.005"
         },
         {
             "children" : [
                 27,
                 28
             ],
-            "name" : "Door.BottomRight.004",
+            "name" : "Door.BottomRight.005",
             "translation" : [
-                4.199999809265137,
-                -11.699999809265137,
+                2.0999999046325684,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopLeft.004",
+            "name" : "DoorLeft.TopLeft.005",
             "rotation" : [
                 0,
                 1,
@@ -354,23 +354,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopLeft.004"
+            "name" : "DoorRight.TopLeft.005"
         },
         {
             "children" : [
                 30,
                 31
             ],
-            "name" : "Door.TopLeft.004",
+            "name" : "Door.TopLeft.005",
             "translation" : [
-                -4.199999809265137,
-                -7.099999904632568,
+                -2.119999885559082,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomLeft.004",
+            "name" : "DoorLeft.BottomLeft.005",
             "rotation" : [
                 0,
                 1,
@@ -380,23 +380,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomLeft.004"
+            "name" : "DoorRight.BottomLeft.005"
         },
         {
             "children" : [
                 33,
                 34
             ],
-            "name" : "Door.BottomLeft.004",
+            "name" : "Door.BottomLeft.005",
             "translation" : [
-                -4.199999809265137,
-                -11.699999809265137,
+                -2.119999885559082,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 0,
-            "name" : "ElevatorShaft.010",
+            "name" : "ElevatorShaft.006",
             "scale" : [
                 2.262418508529663,
                 1,
@@ -410,20 +410,20 @@
         },
         {
             "mesh" : 1,
-            "name" : "Elevator.010",
+            "name" : "Elevator.006",
             "translation" : [
                 0,
-                -11.801887512207031,
+                -6.101887226104736,
                 0
             ]
         },
         {
             "mesh" : 2,
-            "name" : "DoorBorder.010"
+            "name" : "DoorBorder.006"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.010",
+            "name" : "DoorLeft.006",
             "rotation" : [
                 0,
                 1,
@@ -435,15 +435,15 @@
             "children" : [
                 39
             ],
-            "name" : "Door.010"
+            "name" : "Door.006"
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.010"
+            "name" : "DoorRight.006"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopRight.010",
+            "name" : "DoorLeft.TopRight.006",
             "rotation" : [
                 0,
                 1,
@@ -453,23 +453,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopRight.010"
+            "name" : "DoorRight.TopRight.006"
         },
         {
             "children" : [
                 42,
                 43
             ],
-            "name" : "Door.TopRight.010",
+            "name" : "Door.TopRight.006",
             "translation" : [
-                4.199999809265137,
-                -7.099999904632568,
+                2.0999999046325684,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomRight.010",
+            "name" : "DoorLeft.BottomRight.006",
             "rotation" : [
                 0,
                 1,
@@ -479,23 +479,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomRight.010"
+            "name" : "DoorRight.BottomRight.006"
         },
         {
             "children" : [
                 45,
                 46
             ],
-            "name" : "Door.BottomRight.010",
+            "name" : "Door.BottomRight.006",
             "translation" : [
-                4.199999809265137,
-                -11.699999809265137,
+                2.0999999046325684,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopLeft.010",
+            "name" : "DoorLeft.TopLeft.006",
             "rotation" : [
                 0,
                 1,
@@ -505,23 +505,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopLeft.010"
+            "name" : "DoorRight.TopLeft.006"
         },
         {
             "children" : [
                 48,
                 49
             ],
-            "name" : "Door.TopLeft.010",
+            "name" : "Door.TopLeft.006",
             "translation" : [
-                -4.199999809265137,
-                -7.099999904632568,
+                -2.119999885559082,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomLeft.010",
+            "name" : "DoorLeft.BottomLeft.006",
             "rotation" : [
                 0,
                 1,
@@ -531,23 +531,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomLeft.010"
+            "name" : "DoorRight.BottomLeft.006"
         },
         {
             "children" : [
                 51,
                 52
             ],
-            "name" : "Door.BottomLeft.010",
+            "name" : "Door.BottomLeft.006",
             "translation" : [
-                -4.199999809265137,
-                -11.699999809265137,
+                -2.119999885559082,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 0,
-            "name" : "ElevatorShaft.003",
+            "name" : "ElevatorShaft.007",
             "scale" : [
                 2.262418508529663,
                 1,
@@ -561,20 +561,20 @@
         },
         {
             "mesh" : 1,
-            "name" : "Elevator.003",
+            "name" : "Elevator.007",
             "translation" : [
                 0,
-                -11.801887512207031,
+                -6.101887226104736,
                 0
             ]
         },
         {
             "mesh" : 2,
-            "name" : "DoorBorder.003"
+            "name" : "DoorBorder.007"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.003",
+            "name" : "DoorLeft.007",
             "rotation" : [
                 0,
                 1,
@@ -586,15 +586,15 @@
             "children" : [
                 57
             ],
-            "name" : "Door.003"
+            "name" : "Door.007"
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.003"
+            "name" : "DoorRight.007"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopRight.003",
+            "name" : "DoorLeft.TopRight.007",
             "rotation" : [
                 0,
                 1,
@@ -604,23 +604,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopRight.003"
+            "name" : "DoorRight.TopRight.007"
         },
         {
             "children" : [
                 60,
                 61
             ],
-            "name" : "Door.TopRight.003",
+            "name" : "Door.TopRight.007",
             "translation" : [
-                4.199999809265137,
-                -7.099999904632568,
+                2.0999999046325684,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomRight.003",
+            "name" : "DoorLeft.BottomRight.007",
             "rotation" : [
                 0,
                 1,
@@ -630,23 +630,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomRight.003"
+            "name" : "DoorRight.BottomRight.007"
         },
         {
             "children" : [
                 63,
                 64
             ],
-            "name" : "Door.BottomRight.003",
+            "name" : "Door.BottomRight.007",
             "translation" : [
-                4.199999809265137,
-                -11.699999809265137,
+                2.0999999046325684,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopLeft.003",
+            "name" : "DoorLeft.TopLeft.007",
             "rotation" : [
                 0,
                 1,
@@ -656,23 +656,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopLeft.003"
+            "name" : "DoorRight.TopLeft.007"
         },
         {
             "children" : [
                 66,
                 67
             ],
-            "name" : "Door.TopLeft.003",
+            "name" : "Door.TopLeft.007",
             "translation" : [
-                -4.199999809265137,
-                -7.099999904632568,
+                -2.119999885559082,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomLeft.003",
+            "name" : "DoorLeft.BottomLeft.007",
             "rotation" : [
                 0,
                 1,
@@ -682,23 +682,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomLeft.003"
+            "name" : "DoorRight.BottomLeft.007"
         },
         {
             "children" : [
                 69,
                 70
             ],
-            "name" : "Door.BottomLeft.003",
+            "name" : "Door.BottomLeft.007",
             "translation" : [
-                -4.199999809265137,
-                -11.699999809265137,
+                -2.119999885559082,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 0,
-            "name" : "ElevatorShaft.002",
+            "name" : "ElevatorShaft.008",
             "scale" : [
                 2.262418508529663,
                 1,
@@ -712,20 +712,20 @@
         },
         {
             "mesh" : 1,
-            "name" : "Elevator.002",
+            "name" : "Elevator.008",
             "translation" : [
                 0,
-                -10.08594036102295,
+                -6.099018573760986,
                 0
             ]
         },
         {
             "mesh" : 2,
-            "name" : "DoorBorder.002"
+            "name" : "DoorBorder.008"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.002",
+            "name" : "DoorLeft.008",
             "rotation" : [
                 0,
                 1,
@@ -737,15 +737,15 @@
             "children" : [
                 75
             ],
-            "name" : "Door.002"
+            "name" : "Door.008"
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.002"
+            "name" : "DoorRight.008"
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopRight.002",
+            "name" : "DoorLeft.TopRight.008",
             "rotation" : [
                 0,
                 1,
@@ -755,23 +755,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopRight.002"
+            "name" : "DoorRight.TopRight.008"
         },
         {
             "children" : [
                 78,
                 79
             ],
-            "name" : "Door.TopRight.002",
+            "name" : "Door.TopRight.008",
             "translation" : [
-                4.199999809265137,
-                -7.099999904632568,
+                2.0999999046325684,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomRight.002",
+            "name" : "DoorLeft.BottomRight.008",
             "rotation" : [
                 0,
                 1,
@@ -781,23 +781,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomRight.002"
+            "name" : "DoorRight.BottomRight.008"
         },
         {
             "children" : [
                 81,
                 82
             ],
-            "name" : "Door.BottomRight.002",
+            "name" : "Door.BottomRight.008",
             "translation" : [
-                4.199999809265137,
-                -11.699999809265137,
+                2.0999999046325684,
+                -5.899999618530273,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.TopLeft.002",
+            "name" : "DoorLeft.TopLeft.008",
             "rotation" : [
                 0,
                 1,
@@ -807,23 +807,23 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.TopLeft.002"
+            "name" : "DoorRight.TopLeft.008"
         },
         {
             "children" : [
                 84,
                 85
             ],
-            "name" : "Door.TopLeft.002",
+            "name" : "Door.TopLeft.008",
             "translation" : [
-                -4.199999809265137,
-                -7.099999904632568,
+                -2.0999999046325684,
+                -3.5937652587890625,
                 0
             ]
         },
         {
             "mesh" : 3,
-            "name" : "DoorLeft.BottomLeft.002",
+            "name" : "DoorLeft.BottomLeft.008",
             "rotation" : [
                 0,
                 1,
@@ -833,17 +833,17 @@
         },
         {
             "mesh" : 4,
-            "name" : "DoorRight.BottomLeft.002"
+            "name" : "DoorRight.BottomLeft.008"
         },
         {
             "children" : [
                 87,
                 88
             ],
-            "name" : "Door.BottomLeft.002",
+            "name" : "Door.BottomLeft.008",
             "translation" : [
-                -4.199999809265137,
-                -11.699999809265137,
+                -2.0999999046325684,
+                -5.899999618530273,
                 0
             ]
         },
@@ -866,7 +866,7 @@
             "name" : "Elevator",
             "translation" : [
                 0,
-                -11.801887512207031,
+                -6.101887226104736,
                 0
             ]
         },
@@ -883,13 +883,13 @@
                 0.7071068286895752
             ],
             "scale" : [
-                39.92646789550781,
-                39.92646789550781,
-                39.92646789550781
+                20,
+                20,
+                20
             ],
             "translation" : [
-                -0.2577904760837555,
-                -10.229999542236328,
+                -0.2577899992465973,
+                -5.229999542236328,
                 -9.073542594909668
             ]
         },
@@ -934,8 +934,8 @@
             ],
             "name" : "Door.TopRight",
             "translation" : [
-                4.199999809265137,
-                -7.099999904632568,
+                2.0999999046325684,
+                -3.5937652587890625,
                 0
             ]
         },
@@ -960,8 +960,8 @@
             ],
             "name" : "Door.BottomRight",
             "translation" : [
-                4.199999809265137,
-                -11.699999809265137,
+                2.0999999046325684,
+                -5.899999618530273,
                 0
             ]
         },
@@ -986,8 +986,8 @@
             ],
             "name" : "Door.TopLeft",
             "translation" : [
-                -4.199999809265137,
-                -7.099999904632568,
+                -2.0999999046325684,
+                -3.5937652587890625,
                 0
             ]
         },
@@ -1012,8 +1012,8 @@
             ],
             "name" : "Door.BottomLeft",
             "translation" : [
-                -4.199999809265137,
-                -11.699999809265137,
+                -2.0999999046325684,
+                -5.899999618530273,
                 0
             ]
         }
@@ -1029,7 +1029,7 @@
                     }
                 }
             ],
-            "name" : "Elevator.002Action",
+            "name" : "Elevator.008Action",
             "samplers" : [
                 {
                     "input" : 48,
@@ -1048,7 +1048,7 @@
                     }
                 }
             ],
-            "name" : "Door.TopRight.002Action",
+            "name" : "Door.TopRight.008Action",
             "samplers" : [
                 {
                     "input" : 50,
@@ -1305,14 +1305,14 @@
             "componentType" : 5126,
             "count" : 36,
             "max" : [
-                7.420048713684082,
-                0.00496363639831543,
-                2.0999999046325684
+                3.710024356842041,
+                0.004963874816894531,
+                1.0482498407363892
             ],
             "min" : [
-                -7.420048713684082,
-                -17.995037078857422,
-                2.0999999046325684
+                -3.710024356842041,
+                -8.995037078857422,
+                1.0482498407363892
             ],
             "type" : "VEC3"
         },
@@ -1339,14 +1339,14 @@
             "componentType" : 5126,
             "count" : 70,
             "max" : [
-                0.9282101392745972,
-                0.00496363639831543,
-                2.0999999046325684
+                0.4641050696372986,
+                0.004963874816894531,
+                1.0482498407363892
             ],
             "min" : [
-                -0.9282101392745972,
-                -12.995036125183105,
-                -2.1070001125335693
+                -0.4641050696372986,
+                -6.4950361251831055,
+                -1.0552500486373901
             ],
             "type" : "VEC3"
         },
@@ -1373,14 +1373,14 @@
             "componentType" : 5126,
             "count" : 64,
             "max" : [
-                2.7902400493621826,
-                -4.2137861251831055,
-                2.0999999046325684
+                1.3951200246810913,
+                -2.1044111251831055,
+                1.0482498407363892
             ],
             "min" : [
-                -2.7902400493621826,
-                -11.77096939086914,
-                -2.1070001125335693
+                -1.3951200246810913,
+                -5.883003234863281,
+                -1.0552500486373901
             ],
             "type" : "VEC3"
         },
@@ -1407,14 +1407,14 @@
             "componentType" : 5126,
             "count" : 810,
             "max" : [
-                2.1000001430511475,
-                0,
-                2.1000001430511475
+                1.0500000715255737,
+                0.0014550983905792236,
+                1.0500000715255737
             ],
             "min" : [
-                -2.1000001430511475,
-                -17.0341796875,
-                -2.1000001430511475
+                -1.0500000715255737,
+                -8.515634536743164,
+                -1.0500000715255737
             ],
             "type" : "VEC3"
         },
@@ -1441,14 +1441,14 @@
             "componentType" : 5126,
             "count" : 240,
             "max" : [
-                3,
-                0.19999998807907104,
-                3
+                1.5,
+                0.10999998450279236,
+                1.5
             ],
             "min" : [
-                -3,
-                0,
-                -3
+                -1.5,
+                0.009999994188547134,
+                -1.5
             ],
             "type" : "VEC3"
         },
@@ -1475,14 +1475,14 @@
             "componentType" : 5126,
             "count" : 228,
             "max" : [
-                3,
-                0.19999998807907104,
-                3
+                1.5,
+                0.10999998450279236,
+                1.5
             ],
             "min" : [
-                -3,
-                0,
-                -3
+                -1.5,
+                0.009999994188547134,
+                -1.5
             ],
             "type" : "VEC3"
         },
@@ -1509,14 +1509,14 @@
             "componentType" : 5126,
             "count" : 212,
             "max" : [
-                2.0999999046325684,
-                0.19999998807907104,
-                2.0999999046325684
+                1.0500000715255737,
+                0.11930646002292633,
+                1.0499999523162842
             ],
             "min" : [
-                -0.5,
-                0,
-                -2.0999999046325684
+                -0.2499999701976776,
+                0.01930646225810051,
+                -1.0499999523162842
             ],
             "type" : "VEC3"
         },
@@ -1543,14 +1543,14 @@
             "componentType" : 5126,
             "count" : 24,
             "max" : [
-                1.516369104385376,
-                0.09999998658895493,
-                1.3999998569488525
+                0.758184552192688,
+                0.06930644810199738,
+                0.6999998092651367
             ],
             "min" : [
-                0,
-                0,
-                -1.3999998569488525
+                2.9802322387695312e-08,
+                0.01930646225810051,
+                -0.7000000476837158
             ],
             "type" : "VEC3"
         },
@@ -1577,14 +1577,14 @@
             "componentType" : 5126,
             "count" : 7936,
             "max" : [
-                1.9271750450134277,
-                0.23722586035728455,
-                1.888135313987732
+                0.9635876417160034,
+                0.1379193812608719,
+                0.9440675377845764
             ],
             "min" : [
-                0.20752578973770142,
-                0.20049673318862915,
-                -1.8881351947784424
+                0.10376295447349548,
+                0.11955483257770538,
+                -0.9440677165985107
             ],
             "type" : "VEC3"
         },
@@ -1611,14 +1611,14 @@
             "componentType" : 5126,
             "count" : 24,
             "max" : [
-                1.516369104385376,
-                0.09999998658895493,
-                1.3999998569488525
+                0.758184552192688,
+                0.06930644810199738,
+                0.6999999284744263
             ],
             "min" : [
-                0,
-                0,
-                -1.3999998569488525
+                -2.561137080192566e-08,
+                0.01930646225810051,
+                -0.6999999284744263
             ],
             "type" : "VEC3"
         },
@@ -1645,14 +1645,14 @@
             "componentType" : 5126,
             "count" : 140,
             "max" : [
-                2.0999999046325684,
-                0.19999998807907104,
-                2.0999999046325684
+                1.0499999523162842,
+                0.11930646002292633,
+                1.0499999523162842
             ],
             "min" : [
-                0,
-                0,
-                -2.0999999046325684
+                -2.561137080192566e-08,
+                0.01930646225810051,
+                -1.0499999523162842
             ],
             "type" : "VEC3"
         },
@@ -1679,14 +1679,14 @@
             "componentType" : 5126,
             "count" : 3968,
             "max" : [
-                1.9271750450134277,
-                0.23722586035728455,
-                1.8757282495498657
+                0.9635875225067139,
+                0.1379193812608719,
+                0.9378641247749329
             ],
             "min" : [
-                0.21657028794288635,
-                0.20049673318862915,
-                -1.8881351947784424
+                0.1082850992679596,
+                0.11955483257770538,
+                -0.9440675973892212
             ],
             "type" : "VEC3"
         },

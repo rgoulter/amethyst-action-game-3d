@@ -271,7 +271,7 @@ impl Format<Mesh> for GridOfSpritesFormat
 
         // smell
         let data = grid_of_sprites.generate::<ComboMeshCreator>(
-            Some((num_cols as f32, num_rows as f32, 1.0))
+            Some((2.0 * num_cols as f32, 2.0 * num_rows as f32, 1.0))
         );
 
         Ok(FormatValue::data(data))
