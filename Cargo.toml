@@ -6,11 +6,62 @@ edition = "2018"
 
 [dependencies]
 amethyst = "0.10.0"
-amethyst_gltf = "*"
+# amethyst_gltf
 genmesh = "0.6"
 gltf = "*"
 ron = "0.4"
-serde = { version = "1", features = ["serde_derive"] }
+serde = { version = "= 1.0.85", features = ["serde_derive"] }
+
+# Transitive Dependencies that the build is sensitive to
+# arrayvec 0.5.1 fails; was using 0.4.10
+arrayvec = "= 0.4.10"
+# rustc-hash 1.1.0 fails; was using 1.0.1
+rustc-hash = "= 1.0.1"
+# static_assertions-1.1.0 fails; dependency of part of amethyst_rendy 0.4.0;
+# amethust_ui 0.9.0 was  0.5.0
+amethyst_ui = "= 0.5.0"
+# amethust_animation 0.9.0 was  0.5.0
+amethyst_animation = "= 0.5.0"
+# 0.9.0; 0.5.0
+amethyst_gltf = "= 0.5.0"
+# arrayvec 0.5.1 comes from blake2b_simd (0.5.10)
+# from rust-argon2 0.7.0 (-) from redox_users 0.3.4 (0.2.0) from dirs 1.0.5 (1.0.4)
+# from font-kit 0.1.0
+# redox_users = "= 0.2.0"
+dirs = "= 1.0.4"
+# from rusttype 0.8.2 (was 0.7.3)
+# from glyph_brush_layout 0.1.9 (0.1.3) from glyph_brush 0.3.0 (0.2.4)
+rusttype = "= 0.7.3"
+glyph_brush_layout = "= 0.1.3"
+glyph_brush = "= 0.2.4"
+# smallvec 1.2.0 (0.6.8) from unicode-normalization 0.1.12 (0.1.8)
+smallvec = "= 0.6.13"
+unicode-normalization = "= 0.1.8"
+# redox_syscall-0.1.56 (0.1.51)
+# redox_syscall = "= 0.1.51"
+# redox_termios = "= 0.1.1"
+# termion = "= 1.5.1"
+# time = "= 0.1.42"
+# ?! FAILS EVEN WITH SAME VERSIONS?!
+# ^ used by redox_termios - (0.1.1), redox_users 0.2.0 (), termion - (1.5.1), time 0.1.42 ()
+# termion by atty 0.2.11 by clap 2.32.0 by { bindgen 0.32.3, fluent 0.4.3, }
+# bindgen = "= 0.32.3"
+
+# stb truetype 0.3.1 (0.2.5)
+stb_truetype = "= 0.2.5"
+
+# backtrace 0.3.45 (0.3.13)
+backtrace = "= 0.3.13"
+
+# 0.1.18 (0.1.15)
+jpeg-decoder = "= 0.1.15"
+
+# 1.0.46 fails
+serde_json = "= 1.0.37"
+
+# glyph_brush (again) used by gfx_glyph 0.13.2 (1.13.1)
+gfx_glyph = "= 0.13.1"
+
 
 [[bin]]
 name = "action-game-3d"
