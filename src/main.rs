@@ -27,16 +27,16 @@ use crate::systems::{
     ReplaceMaterialSystem,
     UISystem,
 };
-use crate::game::{
+use crate::states::{
     MainMenu,
 };
 
 mod assets;
-mod game;
 mod level;
 mod player;
 mod replace_material;
 mod sprite_grid;
+mod states;
 mod systems;
 mod utils;
 
