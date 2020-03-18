@@ -14,7 +14,7 @@ use amethyst::{
     prelude::*,
 };
 
-use crate::graphics::Assets;
+use crate::assets::Assets;
 use crate::replace_material::ReplaceMaterial;
 use crate::utils::print_gltf_info;
 

@@ -9,7 +9,7 @@ use amethyst::{
     renderer::debug_drawing::{DebugLines, DebugLinesParams},
 };
 
-use crate::graphics::*;
+use crate::assets::*;
 use crate::level::{
     Level,
     init_level,

@@ -17,12 +17,8 @@ use amethyst::{
 };
 use nalgebra::{Translation3, UnitQuaternion, Vector3,};
 
-use crate::graphics::{
-    Assets,
-};
-use crate::player::{
-    init_player,
-};
+use crate::assets::Assets;
+use crate::player::init_player;
 
 #[derive(Clone, Default)]
 pub struct Level {

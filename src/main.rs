@@ -31,8 +31,8 @@ use crate::game::{
     MainMenu,
 };
 
+mod assets;
 mod game;
-mod graphics;
 mod grid_of_sprites;
 mod level;
 mod player;

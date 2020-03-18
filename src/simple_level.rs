@@ -27,8 +27,8 @@ use crate::game::{
     Loading,
 };
 
+mod assets;
 mod game;
-mod graphics;
 mod grid_of_sprites;
 mod level;
 mod player;
