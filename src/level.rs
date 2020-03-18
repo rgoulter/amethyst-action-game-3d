@@ -62,7 +62,7 @@ fn init_camera(world: &mut World) {
         .create_entity()
         .with(Camera::from(Projection::perspective(
           1.3,
-          1.0471975512,
+          PI / 3.0,
           0.01,
           1024.0,
         )))
