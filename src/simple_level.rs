@@ -1,7 +1,6 @@
 use amethyst;
 use amethyst::{
-    animation::AnimationBundle,
-    core::transform::{Transform, TransformBundle},
+    core::transform::TransformBundle,
     input::{InputBundle, StringBindings},
     prelude::{Application, GameDataBuilder},
     renderer::{
@@ -23,7 +22,6 @@ use crate::systems::{
     MovementSystem,
     ReplaceMaterialSystem,
     UISystem,
-    UndergroundBaseControlSystem,
 };
 use crate::game::{
     Loading,
@@ -36,7 +34,6 @@ mod level;
 mod player;
 mod replace_material;
 mod systems;
-mod underground_base;
 mod utils;
 
 fn main() -> Result<(), Error> {
@@ -61,19 +58,11 @@ fn main() -> Result<(), Error> {
             "gltf_loader",
             &[]
         )
-        .with_bundle(
-            AnimationBundle::<usize, Transform>::new("animation_control", "sampler_interpolation")
-                .with_dep(&["gltf_loader"]),
-        )?
         .with_system_desc(MovementSystem, "movement", &[])
-        .with(UndergroundBaseControlSystem, "underground_base_control", &[])
         .with_system_desc(UISystem::default(), "game_ui_system", &[])
         .with_system_desc(DebugSystem::default(), "game_debug_system", &[])
         .with_system_desc(ReplaceMaterialSystem::default(), "replace_material_system", &[])
-        .with_bundle(TransformBundle::new().with_dep(&[
-             "animation_control",
-             "sampler_interpolation",
-        ]))?
+        .with_bundle(TransformBundle::new().with_dep(&[]))?
         .with_bundle(UiBundle::<StringBindings>::new())?
         .with_bundle(FpsCounterBundle::default())?
         .with_bundle(

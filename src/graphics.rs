@@ -40,16 +40,6 @@ use crate::grid_of_sprites::{
 // 6: water (dark)
 
 #[derive(Clone)]
-pub struct UndergroundBaseAnimations {
-    // bottom_left
-    // bottom_right
-    // open
-    // top_left
-    pub top_right: Handle<GltfSceneAsset>,
-    pub unanimated: Handle<GltfSceneAsset>,
-}
-
-#[derive(Clone)]
 pub struct Assets {
     pub tank_gltf: Handle<GltfSceneAsset>,
     pub tank_blue_material: Handle<Material>,
@@ -59,7 +49,6 @@ pub struct Assets {
     pub map_texture_material: Handle<Material>,
     pub map_sprite_sheet: SpriteSheetHandle,
     pub grid_of_sprites: Handle<Mesh>,
-    pub underground_base: UndergroundBaseAnimations,
 }
 
 pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
@@ -199,49 +188,6 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             )
         };
 
-        // underground_base animations:
-        // 0: lift bottom left
-        // 1: lift bottom right
-        // 2: lift open
-        // 3: lift top left
-        // 4: lift top right
-        // 5: scene
-
-        let base_anim_scene_top_right = {
-            let gltf_progress: &mut ProgressCounter = progress;
-            loader.load(
-                "mesh/underground_base.gltf",
-                GltfSceneFormat(
-                GltfSceneOptions {
-                    load_animations: true,
-                    scene_index: Some(4),
-                    ..GltfSceneOptions::default()
-                }),
-                gltf_progress,
-                &gltf_prefab_storage,
-            )
-        };
-
-        let base_unanimated = {
-            let gltf_progress: &mut ProgressCounter = progress;
-            loader.load(
-                "mesh/underground_base.gltf",
-                GltfSceneFormat(
-                GltfSceneOptions {
-                    load_animations: false,
-                    scene_index: Some(5),
-                    ..GltfSceneOptions::default()
-                }),
-                gltf_progress,
-                &gltf_prefab_storage,
-            )
-        };
-
-        let underground_base = UndergroundBaseAnimations {
-            top_right: base_anim_scene_top_right,
-            unanimated: base_unanimated,
-        };
-
         Assets {
             tank_gltf,
             tank_blue_material,
@@ -251,7 +197,6 @@ pub fn load_assets(world: &mut World, progress: &mut ProgressCounter) -> () {
             map_texture_material,
             map_sprite_sheet,
             grid_of_sprites,
-            underground_base,
         }
     };
 
