@@ -1,5 +1,13 @@
 (
     spritesheet_path: "texture/basic_map_spritesheet.ron",
+    // The basic map sprite sheet has incides:
+    // 0: road
+    // 1: sand
+    // 2: sand (dark)
+    // 3: grass
+    // 4: grass (dark)
+    // 5: water
+    // 6: water (dark)
     grid:
         [
             [1, 1, 1, 1],
