@@ -33,7 +33,6 @@ pub fn init_level(world: &mut World, assets: Assets, level: &Level) -> () {
 }
 
 fn init_grid(world: &mut World, assets: Assets) -> () {
-    // init_checkerboard_grid(world, assets.clone());
     init_map_grid(world, assets.clone());
 }
 
@@ -48,43 +47,6 @@ pub fn init_map_grid(world: &mut World, assets: Assets) -> () {
         .with(assets.sprite_grid.clone())
         .build();
 }
-
-// fn init_checkerboard_grid(world: &mut World, assets: Assets) -> Entity {
-    // let transform = Transform::default();
-
-    // let grid_root = world
-        // .create_entity()
-        // .with(transform)
-        // .build();
-
-    // let grid_num_rows = 8;
-    // let grid_num_cols = 8;
-
-    // for x in 0..grid_num_rows {
-        // for y in 0..grid_num_rows {
-            // if (x + y) % 2 == 1 {
-                // let mut transform = Transform::default();
-                // let tx = -0.5 + (x as f32 - (grid_num_rows / 2) as f32);
-                // let ty = 0.5 + (y as f32 - (grid_num_cols / 2) as f32);
-                // // println!("make grid at {}, {} for {}, {}", tx, ty, x, y);
-                // transform.set_xyz(tx, -0.1, ty);
-                // transform.rotate_local(Vector3::x_axis(), -PI / 2.0);
-
-                // let material = assets.grey_material.clone();
-                // let grid_mesh = assets.grid.clone();
-                // world
-                    // .create_entity()
-                    // .with(transform)
-                    // .with(grid_mesh)
-                    // .with(material)
-                    // .with(Parent { entity: grid_root })
-                    // .build();
-            // }
-        // }
-    // }
-
-    // grid_root
-// }
 
 fn init_camera(world: &mut World) {
     let position = Translation3::new(0.0, 15.0, 15.0);
