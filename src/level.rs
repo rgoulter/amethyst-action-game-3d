@@ -45,7 +45,7 @@ pub fn init_map_grid(world: &mut World, assets: Assets) -> () {
         .create_entity()
         .with(transform)
         .with(assets.map_texture_material.clone())
-        .with(assets.grid_of_sprites.clone())
+        .with(assets.sprite_grid.clone())
         .build();
 }
 

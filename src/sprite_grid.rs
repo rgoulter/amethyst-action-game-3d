@@ -1,6 +1,6 @@
 // adapted from shape.rs from amethyst_renderer.
 //
-// grid_of_sprites is for creating a tiled grid of 2D sprites.
+// sprite_grid is for creating a tiled grid of 2D sprites.
 
 use std::sync::Arc;
 
@@ -42,7 +42,7 @@ use serde::{Deserialize, Serialize,};
 
 // Shape generators
 #[derive(Clone, Debug)]
-pub struct GridOfSprites {
+pub struct SpriteGrid {
     pub sprite_sheet: SpriteSheet,
     pub grid: Vec<Vec<usize>>,
     pub num_rows: usize,
@@ -57,8 +57,8 @@ pub type VertexFormat = ([f32; 3], [f32; 3], [f32; 2], [f32; 3]);
 #[derive(Debug)]
 pub struct InternalShape(Vec<VertexFormat>);
 
-impl GridOfSprites {
-    // Generate `MeshData` for the `GridOfSprites`
+impl SpriteGrid {
+    // Generate `MeshData` for the `SpriteGrid`
     //
     // ### Parameters:
     //
@@ -100,8 +100,7 @@ impl GridOfSprites {
         &self,
         plane: Plane,
         scale: Option<(f32, f32, f32)>
-    ) -> Vec<VertexFormat>
-    {
+    ) -> Vec<VertexFormat> {
         plane
             .enumerate()
             .map(|(i, Quad{x: v0, y: v1, z: v2, w: v3})| {
@@ -202,7 +201,7 @@ impl From<InternalShape> for (Vec<Position>, Vec<Normal>, Vec<Tangent>, Vec<TexC
 }
 
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-struct SerializedGridOfSprites {
+struct SerializedSpriteGrid {
     /// Width of the sprite sheet
     pub spritesheet_path: String,
     /// Description of the sprites
@@ -210,14 +209,13 @@ struct SerializedGridOfSprites {
 }
 
 #[derive(Clone, Debug)]
-pub struct GridOfSpritesFormat {
+pub struct SpriteGridFormat {
     pub texture: Handle<Texture>
 }
 
-impl Format<MeshData> for GridOfSpritesFormat
-{
+impl Format<MeshData> for SpriteGridFormat {
     fn name(&self) -> &'static str {
-        "GridOfSprites"
+        "SpriteGrid"
     }
 
     fn import(
@@ -236,9 +234,9 @@ impl Format<MeshData> for GridOfSpritesFormat
             .load(&name)
             .map_err(|_| Error::from_string("error loading asset from source"))?;
 
-        let load_data: SerializedGridOfSprites = from_ron_bytes(&bytes).map_err(|_| {
+        let load_data: SerializedSpriteGrid = from_ron_bytes(&bytes).map_err(|_| {
             Error::from_string(
-                "Failed to parse Ron file for GridOfSprites",
+                "Failed to parse Ron file for SpriteGrid",
             )
         })?;
 
@@ -248,9 +246,9 @@ impl Format<MeshData> for GridOfSpritesFormat
 
         // My understanding: typically Prefab is used for an easy
         //  way to make an Asset which depends on other Assets being loaded.
-        // But this GridOfSprites wants to refer to the SpriteSheet (and its sprites),
+        // But this SpriteGrid wants to refer to the SpriteSheet (and its sprites),
         //  so would have to wait for the spritesheet's loading to be completed
-        //  before it could even begin to load the MeshData from GridOfSprites.
+        //  before it could even begin to load the MeshData from SpriteGrid.
         // So, I'm just loading the spritesheet using SpriteSheetFormat.
         // This doesn't feel idiomatic.
         let sprite_sheet_bytes = source
@@ -261,7 +259,7 @@ impl Format<MeshData> for GridOfSpritesFormat
             format.import_simple(sprite_sheet_bytes)?
         };
 
-        let grid_of_sprites = GridOfSprites {
+        let sprite_grid = SpriteGrid {
             sprite_sheet,
             grid: load_data.grid,
             num_rows,
@@ -269,7 +267,7 @@ impl Format<MeshData> for GridOfSpritesFormat
         };
 
         // smell
-        let data = grid_of_sprites.generate::<(Vec<Position>, Vec<Normal>, Vec<Tangent>, Vec<TexCoord>)>(
+        let data = sprite_grid.generate::<(Vec<Position>, Vec<Normal>, Vec<Tangent>, Vec<TexCoord>)>(
             Some((2.0 * num_cols as f32, 2.0 * num_rows as f32, 1.0))
         ).into();
 

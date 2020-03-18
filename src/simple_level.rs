@@ -29,10 +29,10 @@ use crate::game::{
 
 mod assets;
 mod game;
-mod grid_of_sprites;
 mod level;
 mod player;
 mod replace_material;
+mod sprite_grid;
 mod systems;
 mod utils;
 
