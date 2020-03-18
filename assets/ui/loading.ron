@@ -1,5 +1,5 @@
 #![enable(implicit_some)]
-Text(
+Label(
     transform: (
         id: "loading",
         anchor: Middle,
@@ -11,8 +11,8 @@ Text(
     ),
     text: (
         text: "Loading",
+        font: File("font/square.ttf", ("TTF", ())),
         font_size: 25.,
         color: (0., 0., 1., 1.),
-        font: File("font/square.ttf", Ttf, ()),
     ),
 )

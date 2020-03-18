@@ -2,10 +2,7 @@ use amethyst::{
     assets::{AssetStorage, Handle},
     prelude::*,
 };
-use amethyst_gltf::{
-    GltfPrefab,
-    GltfSceneAsset,
-};
+use amethyst_gltf::{GltfPrefab, GltfSceneAsset};
 
 pub fn print_info_about_gltf_prefab(gltf_prefab: &mut GltfPrefab) -> () {
     println!("info about GLTF Node:");

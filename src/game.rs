@@ -1,14 +1,12 @@
 use amethyst::{
     assets::{Completion, ProgressCounter},
     ecs::{Entities},
-    input::{is_close_requested, is_key_down},
+    input::{VirtualKeyCode, is_close_requested, is_key_down},
     prelude::*,
-    renderer::{
-        VirtualKeyCode,
-    },
     ui::{
         UiCreator, UiEvent, UiEventType, UiFinder, UiTransform,
     },
+    renderer::debug_drawing::{DebugLines, DebugLinesParams},
 };
 
 use crate::graphics::*;
@@ -69,7 +67,6 @@ impl SimpleState for MainMenu {
         let mut progress: ProgressCounter = ProgressCounter::new();
         data.world.exec(|mut creator: UiCreator<'_>| {
             creator.create("ui/main_menu.ron", &mut progress);
-            creator.create("ui/fps.ron", &mut progress);
         });
     }
 
@@ -110,6 +107,9 @@ impl SimpleState for MainMenu {
                 }
                 Trans::None
             }
+            _ => {
+                Trans::None
+            }
         }
     }
 }
@@ -118,6 +118,7 @@ impl SimpleState for Loading {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
         data.world.exec(|mut creator: UiCreator<'_>| {
             creator.create("ui/loading.ron", &mut self.progress);
+            creator.create("ui/fps.ron", &mut self.progress);
         });
 
         load_assets(data.world, &mut self.progress);
@@ -149,6 +150,9 @@ impl SimpleState for Loading {
                 }))
             }
             Completion::Loading => {
+                println!("Loading.. ({}/{})",
+                         self.progress.num_finished(),
+                         self.progress.num_assets());
                 Trans::None
             }
         }
@@ -157,10 +161,20 @@ impl SimpleState for Loading {
 
 impl SimpleState for Main {
     fn on_start(&mut self, data: StateData<'_, GameData<'_, '_>>) {
+        // Setup debug lines as a resource
         let StateData { world, .. } = data;
 
-        let assets = world.read_resource::<Assets>().clone();
-        init_level(world, assets.clone(), &self.level);
+        // Enable DebugLines
+        world.insert(DebugLines::new());
+        world.insert(DebugLinesParams { line_width: 5.0 });
+
+        let maybe_assets = world.try_fetch::<Assets>().map(|a| (*a).clone());
+
+        if let Some(assets) = maybe_assets {
+            init_level(world, assets, &self.level);
+        } else {
+            println!("Couldn't read assets");
+        }
     }
 
     fn handle_event(

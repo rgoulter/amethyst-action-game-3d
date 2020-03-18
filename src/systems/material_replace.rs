@@ -1,21 +1,23 @@
 use std::borrow::Cow;
+use std::collections::HashMap;
 
 use amethyst;
-
 use amethyst::{
+    assets::Handle,
     core::{
         Named,
         Parent,
     },
+    derive::SystemDesc,
     ecs::prelude::{
-        Join, ReadStorage, System, WriteStorage,
+        Entities, Entity, Join, ReadStorage, System, SystemData, WriteStorage,
     },
     renderer::Material,
 };
 
 use crate::replace_material::ReplaceMaterial;
 
-#[derive(Default)]
+#[derive(Default, SystemDesc)]
 pub struct ReplaceMaterialSystem;
 
 fn has_ancestor_with_name<'a>(
@@ -46,22 +48,31 @@ fn has_ancestor_with_name<'a>(
 
 impl<'a> System<'a> for ReplaceMaterialSystem {
     type SystemData = (
+        Entities<'a>,
         WriteStorage<'a, ReplaceMaterial>,
         ReadStorage<'a, Named>,
         ReadStorage<'a, Parent>,
-        WriteStorage<'a, Material>,
+        WriteStorage<'a, Handle<Material>>,
     );
 
     fn run(&mut self, data: Self::SystemData) {
-        let (mut replacements, named, parents, mut materials) =
+        let (entities, mut replacements, named, parents, mut materials) =
             data;
 
+        let mut replacement_map: HashMap<Entity, Handle<Material>> =
+            HashMap::new();
+
+        // Build map of entities with the material we want to replace
+        //
+        // Outer loop: loop over ReplaceMaterials
+        // Inner loop: loop over named entities with material to find descendants
         for (replacement_name, replacement)
         in (&named, &mut replacements).join() {
             if let Some(replacement_material) = &replacement.replacement {
                 let targets = &mut replacement.targets;
-                for (name, parent, mut material)
-                in (&named, &parents, &mut materials).join() {
+
+                for (entity, name, parent, _material)
+                in (&entities, &named, &parents, &materials).join() {
                     let name = &name.name;
 
                     if targets.contains(name) {
@@ -73,7 +84,8 @@ impl<'a> System<'a> for ReplaceMaterialSystem {
                                 &parents
                             );
                         if is_descendant {
-                            material.albedo = replacement_material.clone();
+                            println!("found entity to replace material");
+                            replacement_map.insert(entity, replacement_material.clone());
 
                             targets.remove(name);
                         }
@@ -84,6 +96,11 @@ impl<'a> System<'a> for ReplaceMaterialSystem {
                     replacement.replacement = None;
                 }
             }
+        }
+
+        // Replace the material
+        for (entity, material_handle) in replacement_map {
+            materials.insert(entity, material_handle);
         }
     }
 }

@@ -1,32 +1,20 @@
 use amethyst;
-
 use amethyst::{
-    core::{
-        timing::{Time},
-        Named,
-        Parent,
-    },
-    ecs::prelude::{
-        Read, ReadStorage, System,
-    },
-    input::InputHandler,
-    renderer::{
-        Material,
-        MeshData,
-    },
+    core::{timing::{Time}, Named, Parent},
+    derive::SystemDesc,
+    ecs::prelude::{Read, ReadStorage, System, SystemData},
+    input::{InputHandler, StringBindings},
 };
 
 use crate::player::Player;
 
-#[derive(Default)]
+#[derive(Default, SystemDesc)]
 pub struct DebugSystem;
 
 impl<'a> System<'a> for DebugSystem {
     type SystemData = (
-        Read<'a, InputHandler<String, String>>,
+        Read<'a, InputHandler<StringBindings>>,
         Read<'a, Time>,
-        ReadStorage<'a, Material>,
-        ReadStorage<'a, MeshData>,
         ReadStorage<'a, Named>,
         ReadStorage<'a, Parent>,
         ReadStorage<'a, Player>,
@@ -36,8 +24,6 @@ impl<'a> System<'a> for DebugSystem {
         let (
             _input,
             _time,
-            _materials,
-            _meshes,
             _named,
             _parents,
             _players

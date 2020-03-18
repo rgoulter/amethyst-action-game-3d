@@ -1,31 +1,37 @@
 use amethyst;
-
 use amethyst::{
     animation::AnimationBundle,
-    assets::{HotReloadBundle,},
     core::transform::{Transform, TransformBundle},
-    input::{InputBundle},
-    prelude::*,
+    input::{InputBundle, StringBindings},
+    prelude::{Application, GameDataBuilder},
     renderer::{
-        pipe::*,
-        ALPHA,
-        ColorMask,
-        DepthMode,
-        DisplayConfig,
-        DrawPbmSeparate,
-        RenderBundle,
+        plugins::{
+            RenderDebugLines,
+            RenderPbr3D,
+            RenderToWindow,
+        },
+        types::DefaultBackend,
+        RenderingBundle,
     },
-    ui::{DrawUi, UiBundle},
+    ui::{RenderUi, UiBundle},
     utils::{
+        fps_counter::{FpsCounterBundle},
         application_root_dir,
-        fps_counter::{FPSCounterBundle},
     },
     Error,
 };
-use amethyst_gltf::GltfSceneLoaderSystem;
+use amethyst_gltf::GltfSceneLoaderSystemDesc;
 
-use crate::systems::*;
-use crate::game::*;
+use crate::systems::{
+    DebugSystem,
+    MovementSystem,
+    ReplaceMaterialSystem,
+    UISystem,
+    UndergroundBaseControlSystem,
+};
+use crate::game::{
+    MainMenu,
+};
 
 mod game;
 mod graphics;
@@ -40,57 +46,51 @@ mod utils;
 fn main() -> Result<(), Error> {
     amethyst::start_logger(Default::default());
 
-    let app_root = application_root_dir();
+    let app_root = application_root_dir()?;
 
     // Add our meshes directory to the asset loader.
-    let resources_directory = format!("{}/assets/", app_root);
+    let resources_directory = app_root.join("assets");
 
-     let display_config_path = format!(
-         "{}/resources/display_config.ron",
-         app_root
-     );
+    let display_config_path = app_root.join("resources").join("display_config.ron");
 
-     let input_config_path = format!(
-         "{}/resources/input.ron",
-         app_root
-     );
-
-    let display_config = DisplayConfig::load(display_config_path);
-    let pipe = Pipeline::build().with_stage(
-        Stage::with_backbuffer()
-            .clear_target([0.1, 0.1, 0.1, 1.0], 1024.0)
-            .with_pass(DrawPbmSeparate::new()
-                 .with_transparency(
-                     ColorMask::all(),
-                     ALPHA,
-                     Some(DepthMode::LessEqualWrite)
-                 ))
-            .with_pass(DrawUi::new()),
-    );
+    let input_config_path = app_root.join("resources").join("input.ron");
 
     let game_data = GameDataBuilder::default()
         .with_bundle(
-            InputBundle::<String, String>::new()
-                .with_bindings_from_file(input_config_path)?,
+            InputBundle::<StringBindings>::new()
+                .with_bindings_from_file(input_config_path)?
         )?
-        .with(GltfSceneLoaderSystem::default(), "gltf_loader", &[])
+        .with_system_desc(
+            GltfSceneLoaderSystemDesc::default(),
+            "gltf_loader",
+            &[]
+        )
         .with_bundle(
             AnimationBundle::<usize, Transform>::new("animation_control", "sampler_interpolation")
                 .with_dep(&["gltf_loader"]),
         )?
-        .with(MovementSystem, "movement", &[])
+        .with_system_desc(MovementSystem, "movement", &[])
         .with(UndergroundBaseControlSystem, "underground_base_control", &[])
-        .with::<UISystem>(UISystem::default(), "game_ui_system", &[])
-        .with(ReplaceMaterialSystem::default(), "replace_material_system", &[])
+        .with_system_desc(UISystem::default(), "game_ui_system", &[])
+        .with_system_desc(DebugSystem::default(), "game_debug_system", &[])
+        .with_system_desc(ReplaceMaterialSystem::default(), "replace_material_system", &[])
         .with_bundle(TransformBundle::new().with_dep(&[
-            "animation_control",
-            "sampler_interpolation",
+             "animation_control",
+             "sampler_interpolation",
         ]))?
-        .with_bundle(UiBundle::<String, String>::new())?
-        .with_bundle(HotReloadBundle::default())?
-        .with_bundle(FPSCounterBundle::default())?
-        .with_bundle(RenderBundle::new(pipe, Some(display_config))
-                                  .with_sprite_sheet_processor())?;
+        .with_bundle(UiBundle::<StringBindings>::new())?
+        .with_bundle(FpsCounterBundle::default())?
+        .with_bundle(
+            RenderingBundle::<DefaultBackend>::new()
+                // The RenderToWindow plugin provides all the scaffolding for opening a window and drawing on it
+                .with_plugin(
+                    RenderToWindow::from_config_path(display_config_path)?
+                        .with_clear([0.0, 0.0, 0.0, 1.0]),
+                )
+                .with_plugin(RenderPbr3D::default())
+                .with_plugin(RenderDebugLines::default())
+                .with_plugin(RenderUi::default())
+        )?;
 
     let init_state = MainMenu::default();
 
