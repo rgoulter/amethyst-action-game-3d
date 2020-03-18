@@ -9,7 +9,6 @@ use amethyst::{
     },
     prelude::*,
 };
-use std::f32::consts::PI;
 
 use crate::graphics::Assets;
 
@@ -25,8 +24,7 @@ pub fn init_underground_base(
     assets: Assets,
     init_location: Transform
 ) -> Entity {
-    let mut model_transform = init_location.clone();
-    model_transform.yaw_local(PI); // The GLTF model needs to be turned around.
+    let model_transform = init_location.clone();
     let model_rotation = world
         .create_entity()
         .with(model_transform)

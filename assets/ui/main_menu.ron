@@ -3,15 +3,13 @@ Container(
     transform: (
         id: "main_menu_background",
         anchor: Middle,
-        stretch: XY( x_margin: 0., y_margin: 0.),
+        stretch: XY(x_margin: 0., y_margin: 0., keep_aspect_ratio: false),
         width: 20.,
         height: 20.,
     ),
-    background: (
-        image: Data(Rgba((1.0, 1.0, 1.0, 1.0), (channel: Srgb))),
-    ),
+    background: SolidColor(1.0, 1.0, 1.0, 1.0),
     children: [
-        Text(
+        Label(
             transform: (
                 id: "main_menu_game_title",
                 x: 0.,
@@ -24,7 +22,7 @@ Container(
             ),
             text: (
                 text: "3D Action Game",
-                font: File("font/square.ttf", Ttf, ()),
+                font: File("font/square.ttf", ("TTF", ())),
                 font_size: 50.,
                 color: (0.3, 0.3, 0.3, 1.0),
             )
@@ -43,12 +41,12 @@ Container(
             ),
             button: (
                 text: "Start Game",
-                font: File("font/square.ttf", Ttf, ()),
+                font: File("font/square.ttf", ("TTF", ())),
                 font_size: 20.,
                 normal_text_color: (0.0, 0.0, 0.0, 1.0),
-                normal_image: Data(Rgba((0.8, 0.8, 0.8, 1.0), (channel: Srgb))),
-                hover_image: Data(Rgba((0.9, 0.9, 0.9, 1.0), (channel: Srgb))),
-                press_image: Data(Rgba((0.5, 0.5, 0.5, 1.), (channel: Srgb))),
+                normal_image: SolidColor(0.8, 0.8, 0.8, 1.0),
+                hover_image: SolidColor(0.9, 0.9, 0.9, 1.0),
+                press_image: SolidColor(0.5, 0.5, 0.5, 1.),
             )
         ),
 
@@ -65,12 +63,12 @@ Container(
             ),
             button: (
                 text: "Exit",
-                font: File("font/square.ttf", Ttf, ()),
+                font: File("font/square.ttf", ("TTF", ())),
                 font_size: 20.,
                 normal_text_color: (0.0, 0.0, 0.0, 1.0),
-                normal_image: Data(Rgba((0.8, 0.8, 0.8, 1.0), (channel: Srgb))),
-                hover_image: Data(Rgba((0.9, 0.9, 0.9, 1.0), (channel: Srgb))),
-                press_image: Data(Rgba((0.5, 0.5, 0.5, 1.), (channel: Srgb))),
+                normal_image: SolidColor(0.8, 0.8, 0.8, 1.0),
+                hover_image: SolidColor(0.9, 0.9, 0.9, 1.0),
+                press_image: SolidColor(0.5, 0.5, 0.5, 1.),
             )
         ),
     ],

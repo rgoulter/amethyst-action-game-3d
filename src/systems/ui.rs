@@ -1,17 +1,13 @@
 use amethyst;
-
 use amethyst::{
-    core::{
-        timing::{Time},
-    },
-    ecs::prelude::{
-        Entity, Read, System, WriteStorage
-    },
+    core::timing::Time,
+    derive::SystemDesc,
+    ecs::prelude::{Entity, Read, System, SystemData, WriteStorage},
     ui::{UiFinder, UiText},
-    utils::fps_counter::{FPSCounter},
+    utils::fps_counter::FpsCounter,
 };
 
-#[derive(Default)]
+#[derive(Default, SystemDesc)]
 pub struct UISystem {
     fps_display: Option<Entity>,
 }
@@ -20,7 +16,7 @@ impl<'a> System<'a> for UISystem {
     type SystemData = (
         Read<'a, Time>,
         WriteStorage<'a, UiText>,
-        Read<'a, FPSCounter>,
+        Read<'a, FpsCounter>,
         UiFinder<'a>,
     );
 

@@ -1,6 +1,6 @@
-(
-    spritesheet_width: 224,
-    spritesheet_height: 32,
+List((
+    texture_width: 224,
+    texture_height: 32,
     sprites: [
         // 0: road
         // 1: sand
@@ -60,4 +60,4 @@
             height: 32,
         ),
     ],
-)
+))

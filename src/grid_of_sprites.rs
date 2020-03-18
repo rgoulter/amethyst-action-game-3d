@@ -5,33 +5,43 @@
 use std::sync::Arc;
 
 use amethyst::{
+    error::Error,
     assets::{
-        Error as AssetsError, ErrorKind, Format, FormatValue, Result,
-        ResultExt, SimpleFormat, Source,
-    },
-    core::{
-        nalgebra::{Vector2, Vector3},
+        Format,
+        FormatValue,
+        Handle,
+        Source,
     },
     renderer::{
-        ComboMeshCreator, Mesh, MeshData, Normal, Position, PosTex,
-        PosNormTex, PosNormTangTex, Separate, SpriteSheet,
-        SpriteSheetFormat, Tangent, TexCoord, TextureCoordinates,
-        TextureHandle,
+        rendy::mesh::{
+            MeshBuilder,
+            Normal,
+            Position,
+            PosNormTex,
+            PosNormTangTex,
+            PosTex,
+            Tangent,
+            TexCoord,
+        },
+        sprite::TextureCoordinates,
+        types::MeshData,
+        SpriteSheet,
+        SpriteSheetFormat,
+        Texture,
     },
 };
-
 use genmesh::{
     generators::Plane,
     MapVertex, Quad, Triangulate, Vertices,
 };
-
+use nalgebra::{
+    Vector3,
+};
 use ron::de::from_bytes as from_ron_bytes;
-
 use serde::{Deserialize, Serialize,};
 
 // Shape generators
 #[derive(Clone, Debug)]
-// #[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct GridOfSprites {
     pub sprite_sheet: SpriteSheet,
     pub grid: Vec<Vec<usize>>,
@@ -39,6 +49,8 @@ pub struct GridOfSprites {
     pub num_cols: usize,
 }
 
+// Smells
+// Pos, Norm, Tex, Tangent
 pub type VertexFormat = ([f32; 3], [f32; 3], [f32; 2], [f32; 3]);
 
 /// Internal Shape, used for transformation from `genmesh` to `MeshData`
@@ -58,13 +70,13 @@ impl GridOfSprites {
     //     * `Vec<PosTex>`
     //     * `Vec<PosNormTex>`
     //     * `Vec<PosNormTangTex>`
-    //     * `ComboMeshCreator`
-    pub fn generate<V>(&self, scale: Option<(f32, f32, f32)>) -> MeshData
-    where
-        V: From<InternalShape> + Into<MeshData>,
-    {
-        V::from(self.generate_internal(scale)).into()
-    }
+    //     * `Vec<(Vec<Position>, Vec<Normal>, Vec<Tangent>, Vec<TexCoord>)>`
+     pub fn generate<'a, V>(&self, scale: Option<(f32, f32, f32)>) -> MeshBuilder<'a>
+     where
+         V: From<InternalShape> + Into<MeshBuilder<'a>>,
+     {
+         V::from(self.generate_internal(scale)).into()
+     }
 
     fn generate_internal(&self, scale: Option<(f32, f32, f32)>) -> InternalShape {
         let vertices =
@@ -138,8 +150,8 @@ impl From<InternalShape> for Vec<PosTex> {
             .0
             .iter()
             .map(|v| PosTex {
-                position: Vector3::new(v.0[0], v.0[1], v.0[2]),
-                tex_coord: Vector2::new(v.2[0], v.2[1]),
+                position: Position([v.0[0], v.0[1], v.0[2]]),
+                tex_coord: TexCoord([v.2[0], v.2[1]]),
             })
             .collect()
     }
@@ -151,9 +163,9 @@ impl From<InternalShape> for Vec<PosNormTex> {
             .0
             .iter()
             .map(|v| PosNormTex {
-                position: Vector3::new(v.0[0], v.0[1], v.0[2]),
-                tex_coord: Vector2::new(v.2[0], v.2[1]),
-                normal: Vector3::new(v.1[0], v.1[1], v.1[2]),
+                position: Position([v.0[0], v.0[1], v.0[2]]),
+                normal: Normal([v.1[0], v.1[1], v.1[2]]),
+                tex_coord: TexCoord([v.2[0], v.2[1]]),
             })
             .collect()
     }
@@ -165,46 +177,27 @@ impl From<InternalShape> for Vec<PosNormTangTex> {
             .0
             .iter()
             .map(|v| PosNormTangTex {
-                position: Vector3::new(v.0[0], v.0[1], v.0[2]),
-                tex_coord: Vector2::new(v.2[0], v.2[1]),
-                normal: Vector3::new(v.1[0], v.1[1], v.1[2]),
-                tangent: Vector3::new(v.3[0], v.3[1], v.3[2]),
+                position: Position([v.0[0], v.0[1], v.0[2]]),
+                normal: Normal([v.1[0], v.1[1], v.1[2]]),
+                tex_coord: TexCoord([v.2[0], v.2[1]]),
+                tangent: Tangent([v.3[0], v.3[1], v.3[2], 1.0]),
             })
             .collect()
     }
 }
 
-impl From<InternalShape> for ComboMeshCreator {
+impl From<InternalShape> for (Vec<Position>, Vec<Normal>, Vec<Tangent>, Vec<TexCoord>) {
     fn from(shape: InternalShape) -> Self {
-        ComboMeshCreator::new((
-            shape
-                .0
-                .iter()
-                .map(|v| Separate::<Position>::new(v.0))
-                .collect(),
-            None,
-            Some(
-                shape
-                    .0
-                    .iter()
-                    .map(|v| Separate::<TexCoord>::new(v.2))
-                    .collect(),
-            ),
-            Some(
-                shape
-                    .0
-                    .iter()
-                    .map(|v| Separate::<Normal>::new(v.1))
-                    .collect(),
-            ),
-            Some(
-                shape
-                    .0
-                    .iter()
-                    .map(|v| Separate::<Tangent>::new(v.3))
-                    .collect(),
-            ),
-        ))
+        let v: Vec<PosNormTangTex> = shape.into();
+        let mut vecs = (Vec::new(), Vec::new(), Vec::new(), Vec::new());
+        for pntt in v {
+            let (positions, normals, tangents, tex_coords) = &mut vecs;
+            positions.push(pntt.position);
+            normals.push(pntt.normal);
+            tex_coords.push(pntt.tex_coord);
+            tangents.push(pntt.tangent);
+        }
+        vecs
     }
 }
 
@@ -216,33 +209,37 @@ struct SerializedGridOfSprites {
     pub grid: Vec<Vec<usize>>,
 }
 
-#[derive(Default, Clone, Debug, Serialize, Deserialize)]
-pub struct GridOfSpritesFormat;
+#[derive(Clone, Debug)]
+pub struct GridOfSpritesFormat {
+    pub texture: Handle<Texture>
+}
 
-impl Format<Mesh> for GridOfSpritesFormat
+impl Format<MeshData> for GridOfSpritesFormat
 {
-    const NAME: &'static str = "GridOfSprites";
-    type Options = TextureHandle;
+    fn name(&self) -> &'static str {
+        "GridOfSprites"
+    }
 
     fn import(
         &self,
         name: String,
         source: Arc<dyn Source>,
-        texture: Self::Options,
-        _create_reload: bool,
-    ) -> Result<FormatValue<Mesh>> {
+        _create_reload:  Option<Box<dyn Format<MeshData>>>,
+    ) -> Result<FormatValue<MeshData>, Error> {
         #[cfg(feature = "profiler")]
         profile_scope!("import_asset");
         // NOTE: create_reload is IGNORED.
         // Thus, no hot reloading.
         // To reload, would need to impl. Reload for multiple files.
 
-        let bytes = source.load(&name).chain_err(|| ErrorKind::Source)?;
+        let bytes = source
+            .load(&name)
+            .map_err(|_| Error::from_string("error loading asset from source"))?;
 
         let load_data: SerializedGridOfSprites = from_ron_bytes(&bytes).map_err(|_| {
-            AssetsError::from_kind(ErrorKind::Format(
+            Error::from_string(
                 "Failed to parse Ron file for GridOfSprites",
-            ))
+            )
         })?;
 
         // smell: just assume grid is the right size
@@ -258,9 +255,11 @@ impl Format<Mesh> for GridOfSpritesFormat
         // This doesn't feel idiomatic.
         let sprite_sheet_bytes = source
             .load(&load_data.spritesheet_path)
-            .chain_err(|| ErrorKind::Source)?;
-        let sprite_sheet =
-            SimpleFormat::import(&SpriteSheetFormat{}, sprite_sheet_bytes, texture)?;
+            .map_err(|_| Error::from_string("error loading asset from source"))?;
+        let sprite_sheet = {
+            let format = SpriteSheetFormat(self.texture.clone());
+            format.import_simple(sprite_sheet_bytes)?
+        };
 
         let grid_of_sprites = GridOfSprites {
             sprite_sheet,
@@ -270,9 +269,9 @@ impl Format<Mesh> for GridOfSpritesFormat
         };
 
         // smell
-        let data = grid_of_sprites.generate::<ComboMeshCreator>(
+        let data = grid_of_sprites.generate::<(Vec<Position>, Vec<Normal>, Vec<Tangent>, Vec<TexCoord>)>(
             Some((2.0 * num_cols as f32, 2.0 * num_rows as f32, 1.0))
-        );
+        ).into();
 
         Ok(FormatValue::data(data))
     }

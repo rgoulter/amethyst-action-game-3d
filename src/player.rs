@@ -3,7 +3,7 @@ use std::collections::HashSet;
 
 use amethyst::{
     core::{
-        transform::{Transform},
+        transform::Transform,
         Named,
         Parent,
     },
@@ -13,7 +13,6 @@ use amethyst::{
     },
     prelude::*,
 };
-use std::f32::consts::PI;
 
 use crate::graphics::Assets;
 use crate::replace_material::ReplaceMaterial;
@@ -37,8 +36,7 @@ pub fn init_player(
         .with(Player)
         .build();
 
-    let mut tank_transform = Transform::default();
-    tank_transform.yaw_local(PI); // The GLTF model needs to be turned around.
+    let tank_transform = Transform::default();
     let mut tank_replace_material_targets: HashSet<Cow<'static, str>> =
         HashSet::new();
     tank_replace_material_targets.insert(Cow::Borrowed("TankBase"));
@@ -46,7 +44,7 @@ pub fn init_player(
     tank_replace_material_targets.insert(Cow::Borrowed("TurretGun"));
     let replace_material = ReplaceMaterial {
         targets: tank_replace_material_targets,
-        replacement: Some(assets.tank_blue_texture.clone()),
+        replacement: Some(assets.tank_blue_material.clone()),
     };
     let _model_rotation = world
         .create_entity()
@@ -66,6 +64,7 @@ pub fn init_player(
     let _tank_entity = world
         .create_entity()
         .with(tank_gltf_mesh)
+        .with(Transform::default())
         .with(Parent { entity: _model_rotation })
         .build();
 

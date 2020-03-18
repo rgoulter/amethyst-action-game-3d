@@ -1,5 +1,4 @@
 use amethyst;
-
 use amethyst::{
     animation::{
         AnimationCommand, AnimationControlSet, AnimationSet,
@@ -13,12 +12,7 @@ use amethyst::{
     ecs::prelude::{
         Entity, Join, Read, ReadStorage, System, WriteStorage
     },
-    input::{
-        InputHandler
-    },
-    renderer::{
-        VirtualKeyCode,
-    },
+    input::{InputHandler, StringBindings, VirtualKeyCode},
 };
 
 use crate::underground_base::UndergroundBase;
@@ -57,7 +51,7 @@ pub struct UndergroundBaseControlSystem;
 
 impl<'s> System<'s> for UndergroundBaseControlSystem {
     type SystemData = (
-        Read<'s, InputHandler<String, String>>,
+        Read<'s, InputHandler<StringBindings>>,
         WriteStorage<'s, UndergroundBase>,
         ReadStorage<'s, Parent>,
         ReadStorage<'s, AnimationSet<usize, Transform>>,
@@ -77,6 +71,7 @@ impl<'s> System<'s> for UndergroundBaseControlSystem {
                     );
                 if let Some(animation_control_set) = animation_control_set {
                     if animation_control_set.is_empty() {
+                        println!("Starting Animation");
                         start_animation(
                             gltf_main_entity,
                             &animations,
