@@ -1,0 +1,22 @@
+language: rust
+
+rust:
+  - 1.41.1
+
+cache: cargo
+
+addons:
+  apt:
+    packages:
+      - gcc
+      - pkg-config
+      - openssl
+      - libasound2-dev
+      - cmake
+      - build-essential
+      - python3
+      - libfreetype6-dev
+      - libexpat1-dev
+      - libxcb-composite0-dev
+      - libssl-dev
+      - libx11-dev
