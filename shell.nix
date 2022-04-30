@@ -13,6 +13,7 @@ mkShell {
   buildInputs = [
     alsaLib
     cmake
+    cargo
     freetype
     expat
     openssl
