@@ -7,6 +7,9 @@ library.
 
 - [Amethyst](https://amethyst.rs/) game engine.
 
+  - [This Rustconf keynote](https://kyren.github.io/2018/09/14/rustconf-talk.html)
+    was a fascinating introduction to ECS.
+
 - Textured 3D model.
 
   - The texture can be replaced (e.g. for unit's team colour).
