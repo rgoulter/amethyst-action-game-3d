@@ -23,7 +23,18 @@
             inherit (toolchain) cargo rustc;
           };
       in
-      {
+      rec {
         defaultPackage = pkgs.callPackage ./amethyst-action-game-3d.nix { inherit rustPlatform; };
+        apps = {
+          action-game-3d = {
+            type = "app";
+            program = "${defaultPackage}/bin/action-game-3d";
+          };
+          simple-level = {
+            type = "app";
+            program = "${defaultPackage}/bin/simple-level";
+          };
+        };
+        defaultApp = apps.action-game-3d;
       });
 }

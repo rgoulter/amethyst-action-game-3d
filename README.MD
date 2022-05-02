@@ -22,20 +22,24 @@ library.
 
 ## Setup
 
+For running the application, with Nix Flakes:
+
+```
+nix run github:rgoulter/amethyst-action-game-3d
+```
+
+or from the repository root:
+
+```
+nix run
+```
+
 Using [Nix](https://nixos.org/), e.g., can open `nix-shell`, then
 development can be done with:
 
 ```
 nix-shell$ cargo build
 ```
-
-For just getting a binary, with Nix Flakes:
-
-```
-nix build
-```
-
-then run e.g. `./result/bin/action-game-3d`.
 
 ### Non-nix Setup
 
