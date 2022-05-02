@@ -1,14 +1,14 @@
 { lib
-, fetchFromGitHub
 , rustPlatform
 , alsaLib
+, bash
 , cmake
 , expat
 , freetype
 , openssl
 , pkg-config
 , python3
-, rustc
+, vulkan-loader
 , vulkan-validation-layers
 , xorg
 }:
@@ -38,21 +38,51 @@ rustPlatform.buildRustPackage rec {
     pkg-config
     python3
   ];
+
   buildInputs = [
-    alsaLib.dev
     cmake
+    openssl
+
+    alsaLib
     expat
     freetype
-    openssl
-    rustc
+
+    xorg.libX11
+    xorg.libXcursor
+    xorg.libXi
+    xorg.libXrandr
+    xorg.libxcb
+
+    vulkan-loader
     vulkan-validation-layers
-    xorg.libX11.dev
   ];
 
   # The amethyst crate wants to create a directory under
   # HOME at build time. Set HOME to a tempdir as a workaround.
   preBuild = ''
     export HOME=$(mktemp -d)
+  '';
+
+  postInstall = ''
+    mkdir $out/libexec
+    mv $out/bin/action-game-3d $out/libexec/action-game-3d
+    mv $out/bin/simple-level $out/libexec/simple-level
+    find assets -type f -exec install -Dm 555 "{}" "$out/libexec/{}" \;
+    find resources -type f -exec install -Dm 555 "{}" "$out/libexec/{}" \;
+
+    cat > $out/bin/action-game-3d <<SH
+    #!${bash}/bin/bash
+    export LD_LIBRARY_PATH="${vulkan-loader}/lib:$${LD_LIBRARY_PATH}"
+    $out/libexec/action-game-3d
+    SH
+    chmod +x $out/bin/action-game-3d
+
+    cat > $out/bin/simple-level <<SH
+    #!${bash}/bin/bash
+    export LD_LIBRARY_PATH="${vulkan-loader}/lib:$${LD_LIBRARY_PATH}"
+    $out/libexec/simple-level
+    SH
+    chmod +x $out/bin/simple-level
   '';
 
   meta = with lib; {
