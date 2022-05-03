@@ -25,6 +25,7 @@
       in
       rec {
         defaultPackage = pkgs.callPackage ./amethyst-action-game-3d.nix { inherit rustPlatform; };
+        devShell = import ./shell.nix { inherit pkgs toolchain; };
         apps = {
           action-game-3d = {
             type = "app";
