@@ -34,6 +34,14 @@ or from the repository root:
 nix run
 ```
 
+With [direnv](https://direnv.net/) and Nix Flakes, the `.envrc` uses
+[nix-direnv](https://github.com/nix-community/nix-direnv/) to load
+the development dependencies. Then run e.g.:
+
+```
+cargo build
+```
+
 Using [Nix](https://nixos.org/), e.g., can open `nix-shell`, then
 development can be done with:
 
