@@ -24,18 +24,18 @@
           };
       in
       rec {
-        defaultPackage = pkgs.callPackage ./amethyst-action-game-3d.nix { inherit rustPlatform; };
+        packages.default = pkgs.callPackage ./amethyst-action-game-3d.nix { inherit rustPlatform; };
         devShell = import ./shell.nix { inherit pkgs toolchain; };
-        apps = {
+        apps = rec {
           action-game-3d = {
             type = "app";
-            program = "${defaultPackage}/bin/action-game-3d";
+            program = "${packages.default}/bin/action-game-3d";
           };
           simple-level = {
             type = "app";
-            program = "${defaultPackage}/bin/simple-level";
+            program = "${packages.default}/bin/simple-level";
           };
+          default = action-game-3d;
         };
-        defaultApp = apps.action-game-3d;
       });
 }
